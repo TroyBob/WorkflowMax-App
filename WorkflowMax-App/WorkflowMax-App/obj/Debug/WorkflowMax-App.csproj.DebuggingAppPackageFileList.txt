@@ -1,0 +1,2 @@
+bin\Debug\OfficeAppManifests\WorkflowMax-AppManifest.xml
+C:\Data\Work\BeCloudSmart\WorkflowMax-App\WorkflowMax-App\WorkflowMax-App\bin\Debug\WorkflowMax-App.debugapp
