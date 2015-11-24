@@ -4,31 +4,111 @@
     "use strict";
 
     // The Office initialize function must be run each time a new page is loaded
-    Office.initialize = function (reason) {
+    Office.initialize = function (reason)
+    {
         $(document).ready(function () {
             app.initialize();
+
+            var sender_email = getEmail();
+
+            runApp(sender_email);
 
             displayItemDetails();
         });
     };
 
-    // Displays the "Subject" and "From" fields, based on the current mail item
-    function displayItemDetails() {
-        var item = Office.cast.item.toItemRead(Office.context.mailbox.item);
-        $('#subject').text(item.subject);
+    function getEmail()
+    {
+        var item = Office.context.mailbox.item.from;
 
-        var from;
-        if (item.itemType === Office.MailboxEnums.ItemType.Message) {
-            from = Office.cast.item.toMessageRead(item).from;
-        } else if (item.itemType === Office.MailboxEnums.ItemType.Appointment) {
-            from = Office.cast.item.toAppointmentRead(item).organizer;
+        var email = item.emailAddress;
+
+        return email;
+    }
+
+    function runApp(email)
+    {
+        var list = "https://api.workflowmax.com/client.api/list?apiKey=14C10292983D48CE86E1AA1FE0F8DDFE&accountKey=8A39F28D022B4366975D6FCDB180C839";
+
+        var xmlDoc = getXML(list);
+
+        var returnID = getID(xmlDoc, email);
+
+        document.getElementById("Email").innerHTML = "<b>Email : </b>" + email;
+
+        document.getElementById("Current").innerHTML = "<b>Company ID : </b>" + returnID;
+
+        printJobs(returnID);
+
+        
+    }
+
+    function getXML(list)
+    {
+        var thisXMLhttp = new XMLHttpRequest();
+        thisXMLhttp.open("GET", list, false);
+        thisXMLhttp.send();
+        var thisXMLDoc = thisXMLhttp.responseXML;
+
+        return thisXMLDoc;
+    }
+
+    function getID(passedXML, emailString)
+    {
+        var clientNum = passedXML.getElementsByTagName("Client"); // returns the number of clients
+
+        for (var i = 0; i < clientNum.length; i++)
+        {
+            try
+            {
+                var thisID = clientNum[i].getElementsByTagName("ID")[0].childNodes[0].nodeValue;
+                var thisName = clientNum[i].getElementsByTagName("Name")[0].childNodes[0].nodeValue;
+                var thisEmail = clientNum[i].getElementsByTagName("Email")[0].childNodes[0].nodeValue;
+
+                if (thisEmail == emailString)
+                {
+                    document.getElementById("Company").innerHTML = "<b>Company Name : </b>" + thisName;
+
+                    return thisID;
+                }
+                else
+                {
+                    document.getElementById("Company").innerHTML = "<b>Company Name : </b>This customer is not set up in Workflow Max"
+                }
+            }
+            catch (err)
+            {
+                thisEmail = "null";
+            }
+        }
+    }
+
+    function printJobs(clientID)
+    {
+        var dropdown = "";
+        var jobList = "https://api.workflowmax.com/job.api/client/" + clientID + "?apiKey=14C10292983D48CE86E1AA1FE0F8DDFE&accountKey=8A39F28D022B4366975D6FCDB180C839";
+
+        var jobsXML = getXML(jobList);
+
+        var numJobs = jobsXML.getElementsByTagName("Job");
+
+        for(var i=0; i < numJobs.length; i++)
+        {
+            var currentJob = numJobs[i].getElementsByTagName("ID")[0].childNodes[0].nodeValue;
+
+            dropdown += "<option value\"" + currentJob + "\">" + currentJob + "</option>";
         }
 
-        if (from) {
-            $('#from').text(from.displayName);
-            $('#from').click(function () {
-                app.showNotification(from.displayName, from.emailAddress);
-            });
-        }
+        document.getElementById("Jobs").innerHTML = dropdown;
+       
+    }
+
+    function printTasks(jobID)
+    {
+        var dropdown = "";
+        var taskList = "
+
+
+
     }
 })();
