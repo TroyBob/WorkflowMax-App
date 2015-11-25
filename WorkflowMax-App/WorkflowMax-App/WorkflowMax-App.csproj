@@ -43,6 +43,7 @@
     <UseVSHostingProcess>false</UseVSHostingProcess>
   </PropertyGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="WorkflowMax-AppManifest\SharePointProjectItem.spdata">
       <SharePointProjectItemId>{f1ca3d8e-bd3f-480a-827b-609f35f20490}</SharePointProjectItemId>
     </None>

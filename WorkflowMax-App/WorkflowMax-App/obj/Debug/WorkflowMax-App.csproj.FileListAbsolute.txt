@@ -22,3 +22,4 @@ C:\Users\TroyCumpsty\Source\Repos\WorkflowMax-App\WorkflowMax-App\WorkflowMax-Ap
 C:\Users\TroyCumpsty\Source\Repos\WorkflowMax-App\WorkflowMax-App\WorkflowMax-App\bin\Debug\roslyn\vbc.exe
 C:\Users\TroyCumpsty\Source\Repos\WorkflowMax-App\WorkflowMax-App\WorkflowMax-App\bin\Debug\roslyn\VBCSCompiler.exe
 C:\Users\TroyCumpsty\Source\Repos\WorkflowMax-App\WorkflowMax-App\WorkflowMax-App\bin\Debug\roslyn\VBCSCompiler.exe.config
+C:\Users\TroyCumpsty\Source\Repos\WorkflowMax-App\WorkflowMax-App\WorkflowMax-App\bin\Debug\WorkflowMax-App.dll.config

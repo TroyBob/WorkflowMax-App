@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <App xmlns="http://schemas.microsoft.com/sharepoint/2012/app/manifest"
      Name="WorkflowMax-App"
-     ProductID="{36baa22a-16b7-45c3-a9be-d5605a73b48b}"
+     ProductID="{05369910-d1f5-4b5e-a842-fb26497360c6}"
      Version="1.0.0.0"
      SharePointMinVersion="15.0.0.0"
 >
