@@ -9,16 +9,18 @@
         $(document).ready(function () {
             app.initialize();
 
-            var sender_email = getEmail();
+            var sender_email = getEmail(); 
 
-            runApp(sender_email);
+            runApp(sender_email); // Main function
 
+            //Event listener functions for clickable buttons.
             $("#uploadNote").click(uploadNote);
             $("#uploadTimesheet").click(uploadTimesheet);
 
         });
     };
 
+    // Function to get the sender email.
     function getEmail()
     {
         var item = Office.context.mailbox.item.from;
@@ -40,47 +42,100 @@
 
         document.getElementById("Current").innerHTML = "<b>Company ID : </b>" + returnID;
 
-        printJobs(returnID);    
+        printJobs(returnID);
     }
 
     function uploadNote()
     {
+        //Get the content of email. 
+        var item = Office.context.mailbox.item.body.getAsync("text", callback);    
+    }
+
+    function callback(asyncResult)
+    {
+        //Get the currently selected job in dropdown menu.
+        var notetext = asyncResult.value;
         var jobs = document.getElementById("Jobs").options.selectedIndex;
         var currentJob = document.getElementById("Jobs").options[jobs].text;
-        var noteText = document.getElementById("Note").value;
 
         var apicall = "https://api.workflowmax.com/job.api/note?apiKey=14C10292983D48CE86E1AA1FE0F8DDFE&accountKey=8A39F28D022B4366975D6FCDB180C839";
 
-        var note = "<Note><Job>" + currentJob + "</Job><Title>Email note</Title><Text>" + noteText + "</Text></Note>";
+        var noteXML = "<Note><Job>" + currentJob + "</Job><Title>Email content</Title><Text>" + asyncResult.value + "</Text></Note>"; // XML representing the note.
 
-        var xhr = new XMLHttpRequest();
+        var xhr = new XMLHttpRequest(); // Create a new XMLHTTPRequest
 
-        xhr.open('POST', apicall);
+        xhr.open('POST', apicall); 
 
-        xhr.send(note);
+        xhr.send(noteXML); //Send the note to workflowmax via XMLHttpRequest
     }
 
     function uploadTimesheet()
     {
+        //Get the currently selected job in dropdown menu.
         var jobs = document.getElementById("Jobs").options.selectedIndex;
         var currentJob = document.getElementById("Jobs").options[jobs].text;
-        var noteText = document.getElementById("Note").value;
-
+        
         var task = getTask(currentJob);
+    }
 
-        var apicall = "https://api.workflowmax.com/time.api/add?apiKey=14C10292983D48CE86E1AA1FE0F8DDFE&accountKey=8A39F28D022B4366975D6FCDB180C839";
-        var tsxml = "<Timesheet><Job>"+ currentJob + "</Job><Task>36465645</Task><Staff>304191</Staff><Date>20151125</Date><Minutes>15</Minutes><Note>" + noteText + "</Note></Timesheet>";
+    function getTask(jobID)
+    {
+        var taskname = "Consulting - Email Processing";
+        var foundtask = false;
 
-        var xhr = new XMLHttpRequest();
+       var apicall = "https://api.workflowmax.com/job.api/get/" + jobID + "?apiKey=14C10292983D48CE86E1AA1FE0F8DDFE&accountKey=8A39F28D022B4366975D6FCDB180C839";
 
-        xhr.open('POST', apicall);
+        var jobDetails = getXML(apicall);
 
-        xhr.send(tsxml);
+        var tasklist = jobDetails.getElementsByTagName("Task");
 
+        
 
+        for (var i = 0; i < tasklist.length; i++)
+        {
+            var thistask = tasklist[i].getElementsByTagName("Name")[0].childNodes[0].nodeValue;
+            var taskID = tasklist[i].getElementsByTagName("ID")[0].childNodes[0].nodeValue;
+            
+            if(thistask == taskname)
+            {
+                updateTask(jobID, taskID);
+                foundtask = true;
+                break;
+            }
+        }
 
+        //If the email processing task does not exist; create one and add 15 minutes to it.
+        if (!foundtask)
+        {
+            createTask(jobID);
+            var id = getTaskID(jobID);
+            updateTask(jobID, id);
+        }
 
+        return tasklist;
+    }
 
+    //Function to return date in the form YYYYMMDD, to conform to WorkflowMax format.
+    function getDate()
+    {
+        var date = new Date();
+
+        var month = date.getMonth()+1;
+        var day = date.getDate();
+
+        if (date.getMonth() < 10)
+        {
+            month = "0" + month;
+        }
+
+        if (date.getDate() < 10)
+        {
+            day = "0" + day;
+        }
+
+        var datestring = "" + date.getFullYear() + month + day;
+
+        return datestring;
     }
 
     function getStaff()
@@ -88,22 +143,66 @@
 
     }
 
-    function getTask(jobID)
+    //Function to add 15 minutes to the email processing task
+    function updateTask(jobID, taskID)
     {
+        var noteText = document.getElementById("Note").value;
+
+        var apicall = "https://api.workflowmax.com/time.api/add?apiKey=14C10292983D48CE86E1AA1FE0F8DDFE&accountKey=8A39F28D022B4366975D6FCDB180C839";
+        var tsxml = "<Timesheet><Job>" + jobID + "</Job><Task>" + taskID + "</Task><Staff>304191</Staff><Date>" + getDate() + "</Date><Minutes>15</Minutes><Note>" + noteText + "</Note></Timesheet>";
+
+        var xhr = new XMLHttpRequest();
+
+        xhr.open('POST', apicall);
+
+        xhr.send(tsxml);
+    }
+
+    function getTaskID(jobID)
+    {
+        var taskname = "Consulting - Email Processing";
         var apicall = "https://api.workflowmax.com/job.api/get/" + jobID + "?apiKey=14C10292983D48CE86E1AA1FE0F8DDFE&accountKey=8A39F28D022B4366975D6FCDB180C839";
 
         var jobDetails = getXML(apicall);
 
         var tasklist = jobDetails.getElementsByTagName("Task");
 
-        var thistask = tasklist[0].getElementsByTagName("Name").childNodes[0].nodeValue;
+        document.getElementById("Email").innerHTML = "<b>Email : </b>" + tasklist.length;
 
-        document.getElementById("Email").innerHTML = "<b>Email : boo! </b> ";
+        for (var i = 0; i <= tasklist.length; i++)
+        {
+            //document.getElementById("Email").innerHTML = "<b>Email : Hello </b>";
+            
+            var thistask = tasklist[i].getElementsByTagName("Name")[0].childNodes[0].nodeValue;            
+            var taskID = tasklist[i].getElementsByTagName("ID")[0].childNodes[0].nodeValue;
+            if (taskID == null)
+            {
+                
+            }
 
-        
+            if (thistask == taskname)
+            {
+                
+                return taskID;
+            }
+        }
     }
 
+    //Creates the email processing task
+    function createTask(jobID)
+    {
+        var taskID = "1772154";
+        var label = "Email Processing";
 
+        var apicall = "https://api.workflowmax.com/job.api/task?apiKey=14C10292983D48CE86E1AA1FE0F8DDFE&accountKey=8A39F28D022B4366975D6FCDB180C839";
+
+         var taskXML = "<Task><Job>" + jobID + "</Job><TaskID>" + taskID + "</TaskID><Label>" + label + "</Label><EstimatedMinutes>300</EstimatedMinutes></Task>";
+
+        var xhr = new XMLHttpRequest();
+
+        xhr.open('POST', apicall);
+        xhr.send(taskXML);
+    }
 
     function getXML(list)
     {
