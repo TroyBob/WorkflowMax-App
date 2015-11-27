@@ -16,7 +16,7 @@
             //Event listener functions for clickable buttons.
             $("#uploadNote").click(uploadNote);
             $("#uploadTimesheet").click(uploadTimesheet);
-
+            $("#uploadAttachment").click(uploadAttachment);
         });
     };
 
@@ -36,19 +36,51 @@
 
         var xmlDoc = getXML(list);
 
-        var returnID = getID(xmlDoc, email);
+        var returnID = getID(xmlDoc, email); // Gets the Company ID of the sender email. 
 
-        document.getElementById("Email").innerHTML = "<b>Email : </b>" + email;
+        //document.getElementById("Email").innerHTML = "<b>Email : </b>" + email;
 
-        document.getElementById("Current").innerHTML = "<b>Company ID : </b>" + returnID;
+        //document.getElementById("CompanyID").innerHTML = "<b>Company ID : </b>" + returnID;
 
-        printJobs(returnID);
+        var staffID = getStaffID();
+
+        //Prints jobs that are assigned to you.
+        printJobs(returnID, staffID);
     }
 
+    //Uploads the attachment of the email if there is one.
+    function uploadAttachment()
+    {
+        if (Office.context.mailbox.item.attachments == undefined)
+        {
+            app.showNotification("Upload Attachment Error", "Attachments are not supported by your Exchange server.");
+        }
+        else if (Office.context.mailbox.item.attachments.length == 0)
+        {
+            app.showNotification("Upload Attachment Error", "There are no attachments on this item.");
+        }
+        else
+        {
+            var jobs = document.getElementById("Jobs").options.selectedIndex;
+            var currentJob = document.getElementById("Jobs").options[jobs].text;
+
+            var apicall = "https://api.workflowmax.com/job.api/document?apiKey=14C10292983D48CE86E1AA1FE0F8DDFE&accountKey=8A39F28D022B4366975D6FCDB180C839";
+
+            var documentXML = "<Document><Job>" + currentJob + "</Job><Title>Document Title</Title><Text>Note for document</Text><FileName>test.txt</FileName><Content>" + string64 + "</Content></Document>";
+
+            var xhr = new XMLHttpRequest();
+
+            xhr.open('POST', apicall);
+
+            xhr.send(documentXML);
+        }
+    }
+
+    //Uploads the content of the email
     function uploadNote()
     {
         //Get the content of email. 
-        var item = Office.context.mailbox.item.body.getAsync("text", callback);    
+        var item = Office.context.mailbox.item.body.getAsync("text", callback);
     }
 
     function callback(asyncResult)
@@ -69,6 +101,7 @@
         xhr.send(noteXML); //Send the note to workflowmax via XMLHttpRequest
     }
 
+    //Adds a timesheet entry.
     function uploadTimesheet()
     {
         //Get the currently selected job in dropdown menu.
@@ -138,9 +171,31 @@
         return datestring;
     }
 
-    function getStaff()
+    function getStaffID()
     {
+        //Get email of the user.
+        var email = Office.context.mailbox.userProfile.emailAddress;
 
+        var apicall = "https://api.workflowmax.com/staff.api/list?apiKey=14C10292983D48CE86E1AA1FE0F8DDFE&accountKey=8A39F28D022B4366975D6FCDB180C839";
+
+        //Get the list of all staff
+        var staffdetails = getXML(apicall);
+
+        var stafflist = staffdetails.getElementsByTagName("Staff");
+
+        //Find the staff 
+        for(var i = 0; i < stafflist.length; i++)
+        {
+            var tempEmail = stafflist[i].getElementsByTagName("Email")[0].childNodes[0].nodeValue;
+            var tempID = stafflist[i].getElementsByTagName("ID")[0].childNodes[0].nodeValue;
+
+            if(tempEmail == email)
+            {
+                return tempID; //Returns the staff ID if found
+            }
+        }
+
+        return null; //Return null if the staff is not found (this user is not a staff member)
     }
 
     //Function to add 15 minutes to the email processing task
@@ -149,7 +204,7 @@
         var noteText = document.getElementById("Note").value;
 
         var apicall = "https://api.workflowmax.com/time.api/add?apiKey=14C10292983D48CE86E1AA1FE0F8DDFE&accountKey=8A39F28D022B4366975D6FCDB180C839";
-        var tsxml = "<Timesheet><Job>" + jobID + "</Job><Task>" + taskID + "</Task><Staff>304191</Staff><Date>" + getDate() + "</Date><Minutes>15</Minutes><Note>" + noteText + "</Note></Timesheet>";
+        var tsxml = "<Timesheet><Job>" + jobID + "</Job><Task>" + taskID + "</Task><Staff>" + getStaffID() + "</Staff><Date>" + getDate() + "</Date><Minutes>15</Minutes><Note>" + noteText + "</Note></Timesheet>";
 
         var xhr = new XMLHttpRequest();
 
@@ -166,8 +221,6 @@
         var jobDetails = getXML(apicall);
 
         var tasklist = jobDetails.getElementsByTagName("Task");
-
-        document.getElementById("Email").innerHTML = "<b>Email : </b>" + tasklist.length;
 
         for (var i = 0; i <= tasklist.length; i++)
         {
@@ -244,10 +297,12 @@
         }
     }
 
-    function printJobs(clientID)
+    function printJobs(clientID, staffID)
     {
         var dropdown = "";
-        var jobList = "https://api.workflowmax.com/job.api/client/" + clientID + "?apiKey=14C10292983D48CE86E1AA1FE0F8DDFE&accountKey=8A39F28D022B4366975D6FCDB180C839";
+
+        //Gets the list of jobs assigned to this staff member
+        var jobList = "https://api.workflowmax.com/job.api/staff/" + staffID + "?apiKey=14C10292983D48CE86E1AA1FE0F8DDFE&accountKey=8A39F28D022B4366975D6FCDB180C839";
 
         var jobsXML = getXML(jobList);
 
@@ -255,18 +310,18 @@
 
         for(var i=0; i < numJobs.length; i++)
         {
-            var currentJob = numJobs[i].getElementsByTagName("ID")[0].childNodes[0].nodeValue;
+            var tempJobID = numJobs[i].getElementsByTagName("ID")[0].childNodes[0].nodeValue;
+            //var tempClientID = numJobs[i].getElementsByTagName("ID")[1].childNodes[0].nodeValue;
 
-            dropdown += "<option value\"" + currentJob + "\">" + currentJob + "</option>";
+            dropdown += "<option value\"" + tempJobID + "\">" + tempJobID + "</option>";
+            
         }
 
-        document.getElementById("Jobs").innerHTML = dropdown;
-       
+        document.getElementById("Jobs").innerHTML = dropdown; 
     }
 
     function printTasks(jobID)
     {
         var dropdown = "";
     }
-
 })();
