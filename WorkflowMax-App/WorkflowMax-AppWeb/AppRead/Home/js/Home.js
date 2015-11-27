@@ -299,7 +299,7 @@
 
     function printJobs(clientID, staffID)
     {
-        var dropdown = "";
+        var dropdown = document.getElementById("Jobs");
 
         //Gets the list of jobs assigned to this staff member
         var jobList = "https://api.workflowmax.com/job.api/staff/" + staffID + "?apiKey=14C10292983D48CE86E1AA1FE0F8DDFE&accountKey=8A39F28D022B4366975D6FCDB180C839";
@@ -312,12 +312,12 @@
         {
             var tempJobID = numJobs[i].getElementsByTagName("ID")[0].childNodes[0].nodeValue;
             //var tempClientID = numJobs[i].getElementsByTagName("ID")[1].childNodes[0].nodeValue;
+            
 
-            dropdown += "<option value\"" + tempJobID + "\">" + tempJobID + "</option>";
+            $('#Jobs').append('<option>' + i + '</option>').addClass('cs-select cs-skin-slide');
             
         }
-
-        document.getElementById("Jobs").innerHTML = dropdown; 
+      
     }
 
     function printTasks(jobID)
