@@ -17,7 +17,11 @@
             $("#uploadNote").click(uploadNote);
             $("#uploadTimesheet").click(uploadTimesheet);
             $("#uploadAttachment").click(uploadAttachment);
-            $("ul#Jobs").on('click', 'li', { name: $(this).text}, printTasks);
+            $("ul#Jobs").on('click', 'li', function ()
+            {
+                printTasks($(this));
+            }
+            );
             
         });
     };
@@ -52,8 +56,6 @@
         var id = "Jobs";
 
         makePretty(document.getElementById("selectJobs").id, id);
-        
-        
     }
 
     //Uploads the attachment of the email if there is one.
@@ -324,17 +326,46 @@
 
         var numJobs = jobsXML.getElementsByTagName("Job");
 
-        for(var i=0; i < numJobs.length; i++)
+        for (var i = 0; i < numJobs.length; i++)
         {
             var tempJobID = numJobs[i].getElementsByTagName("ID")[0].childNodes[0].nodeValue;
             var tempJobName = numJobs[i].getElementsByTagName("Name")[0].childNodes[0].nodeValue;
             //var tempClientID = numJobs[i].getElementsByTagName("ID")[1].childNodes[0].nodeValue;
 
-            $('#selectJobs').append('<option>' + tempJobID + '-' + tempJobName + '</option>');         
-        } 
+            $('#selectJobs').append('<option>' + tempJobID + '-' + tempJobName + '</option>');
+        }
     }
 
-    function selectJobs()
+    function printTasks(job)
+    {
+        var name = job.attr('data-value');
+
+        var jobID = name.substring(0, 7);
+
+        if (jobID != "Jobs")
+        {
+            $('#selectTasks').empty(); //Empty list of tasks.
+
+            var id = "Tasks";
+
+            var apicall = "https://api.workflowmax.com/job.api/get/" + jobID + "?apiKey=14C10292983D48CE86E1AA1FE0F8DDFE&accountKey=8A39F28D022B4366975D6FCDB180C839";
+
+            var jobdetails = getXML(apicall);
+
+            var numTasks = jobdetails.getElementsByTagName("Task");
+
+            for (var i = 0; i < numTasks.length; i++)
+            {
+                var tempTaskName = numTasks[i].getElementsByTagName("Name")[0].childNodes[0].nodeValue;
+
+                $('#selectTasks').append('<option>' + tempTaskName + '</option>'); //Append the current job's list of tasks.
+            }
+
+            makePretty(document.getElementById("selectTasks").id, id);
+        }
+    }
+
+    /*function selectJobs()
     {
         var jobs = document.getElementById("selectJobs").options.selectedIndex;
         var currentJob = document.getElementById("selectJobs").options[jobs].text;
@@ -349,30 +380,5 @@
         {
             return null;
         }
-    }
-
-    function printTasks()
-    {
-        var a = event.data.name;
-        app.showNotification(a);
-
-        
-        var jobID = selectJobs();
-
-        if (jobID != null)
-        {
-            var apicall = "https://api.workflowmax.com/job.api/get/" + jobID + "?apiKey=14C10292983D48CE86E1AA1FE0F8DDFE&accountKey=8A39F28D022B4366975D6FCDB180C839";
-
-            var jobdetails = getXML(apicall);
-
-            var numTasks = jobdetails.getElementsByTagName("Task");
-
-            for (var i = 0; i < numTasks.length; i++)
-            {
-                var tempTaskName = numTasks[i].getElementsByTagName("Name")[0].childNodes[0].nodeValue;
-
-                $('#selectTasks').append('<option>' + tempTaskName + '</option>');
-            }
-        }
-    }
+    }*/
 })();

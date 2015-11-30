@@ -120,7 +120,7 @@ input, textarea, select, button {
         padding: 0;
     }
 
-    button, textarea, select,
+    button, textarea,
     input:not([type]),
     input[type="button"],
     input[type="color"],
