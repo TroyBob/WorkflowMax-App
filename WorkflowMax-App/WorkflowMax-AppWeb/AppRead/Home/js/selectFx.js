@@ -10,14 +10,16 @@
  */
 ;( function( window ) {
 	
-	'use strict';
+    'use strict';
+   
 
 	/**
 	 * based on from https://github.com/inuyaksa/jquery.nicescroll/blob/master/jquery.nicescroll.js
 	 */
 	function hasParent( e, p ) {
 		if (!e) return false;
-		var el = e.target||e.srcElement||e||false;
+		var el = e.target || e.srcElement || e || false;
+		var a = 'test';
 		while (el && el != p) {
 			el = el.parentNode||false;
 		}
@@ -39,12 +41,15 @@
 	/**
 	 * SelectFx function
 	 */
-	function SelectFx( el, options ) {	
-		this.el = el;
+	function SelectFx( el, id, options) {	
+	    this.el = el;
+	    this.id = id;
 		this.options = extend( {}, this.options );
 		extend( this.options, options );
 		this._init();
 	}
+
+	SelectFx.prototype.id = "";
 
 	/**
 	 * SelectFx options
@@ -135,13 +140,13 @@
 			}
 		} );
 
-		var opts_el = '<div class="cs-options"><ul>' + options + '</ul></div>';
+		var opts_el = '<div class="cs-options" ><ul id ="' + this.id + '">' + options + '</ul></div>';
 		this.selEl = document.createElement( 'div' );
 		this.selEl.className = this.el.className;
 		this.selEl.tabIndex = this.el.tabIndex;
 		this.selEl.innerHTML = '<span class="cs-placeholder">' + this.selectedOpt.textContent + '</span>' + opts_el;
 		this.el.parentNode.appendChild( this.selEl );
-		this.selEl.appendChild( this.el );
+		this.selEl.appendChild(this.el);
 	}
 
 	/**
@@ -316,6 +321,8 @@
 			classie.remove( focusEl, 'cs-focus' );
 		}
 	}
+
+    
 
 	/**
 	 * add to global namespace

@@ -10,8 +10,8 @@
 }
 
 div.cs-skin-slide {
-	color: #fff;
-	font-size: 1.5em;
+	color: #595A5C;
+	/*font-size: 1.5em;*/
 	width: 300px;
 }
 
@@ -21,7 +21,7 @@ div.cs-skin-slide {
 
 div.cs-skin-slide::before {
 	content: '';
-	background: #282b30;
+	/*background: #282b30;*/
 	position: absolute;
 	width: 100%;
 	height: 100%;
@@ -39,8 +39,8 @@ div.cs-skin-slide::before {
 }
 
 .cs-skin-slide > span {
-	height: 80px;
-	line-height: 32px;
+	/*height: 20px;*/
+	line-height: 16px;
 	-webkit-transition: text-indent 0.3s, opacity 0.3s;
 	transition: text-indent 0.3s, opacity 0.3s;
 }
@@ -74,7 +74,7 @@ div.cs-skin-slide::before {
 	height: 400%;
 	padding: 1.9em 0;
 	top: 50%;
-	left: 50%;
+	left: 30%;
 	-webkit-transform: translate3d(-50%,-50%,0);
 	transform: translate3d(-50%,-50%,0);
 }
@@ -123,11 +123,11 @@ div.cs-skin-slide::before {
 } /* more options need more delay declaration */
 
 .cs-skin-slide .cs-options li span {
-	text-transform: uppercase;
-	font-weight: 500;
-	letter-spacing: 2px;
+	/*text-transform: uppercase;*/
+	font-weight: 200;
+	letter-spacing: 1px;
 	font-size: 65%;
-	padding: 0.8em 1em 0.8em 2.5em;
+	padding: 0.1em 1em 0.8em 2.5em;
 }
 
 .cs-skin-slide .cs-options li span:hover,
