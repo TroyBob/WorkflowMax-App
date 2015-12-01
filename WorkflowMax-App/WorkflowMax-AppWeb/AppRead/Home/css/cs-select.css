@@ -43,6 +43,7 @@ div.cs-select:focus {
 .cs-select .cs-selected span::after {
 	speak: none;
 	position: absolute;
+    padding: 10px;
 	top: 50%;
 	-webkit-transform: translateY(-50%);
 	transform: translateY(-50%);
@@ -52,7 +53,6 @@ div.cs-select:focus {
 
 .cs-select > span::after {
 	content: '\25BE';
-	right: 1em;
 }
 
 .cs-select .cs-selected span::after {

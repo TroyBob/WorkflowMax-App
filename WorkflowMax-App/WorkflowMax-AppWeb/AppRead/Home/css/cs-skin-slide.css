@@ -58,7 +58,7 @@ div.cs-skin-slide::before {
 .cs-skin-slide.cs-active > span::after {
 	font-family: 'icomoon';
 	content: '\e00f';
-	color: #eb7e7f;
+	color: #595A5C;
 	-webkit-backface-visibility: hidden;
 	backface-visibility: hidden;
 }

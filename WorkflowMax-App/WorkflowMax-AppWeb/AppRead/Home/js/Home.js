@@ -54,8 +54,10 @@
         printJobs(returnID, staffID);
 
         var id = "Jobs";
+        var circle = "Buttons";
 
         makePretty(document.getElementById("selectJobs").id, id);
+        makeCircular(document.getElementById("circular").id, circle);
     }
 
     //Uploads the attachment of the email if there is one.
@@ -179,14 +181,6 @@
         var datestring = "" + date.getFullYear() + month + day;
 
         return datestring;
-    }
-
-    function makePretty(id, ulid)
-    {
-        [].slice.call(document.querySelectorAll('#' + id)).forEach(function (el)
-        {
-            new SelectFx(el, ulid);
-        });
     }
 
     function getStaffID()
@@ -363,6 +357,33 @@
 
             makePretty(document.getElementById("selectTasks").id, id);
         }
+    }
+
+    function makePretty(id, ulid)
+    {
+        [].slice.call(document.querySelectorAll('#' + id)).forEach(function (el)
+        {
+            new SelectFx(el, ulid);
+        });
+    }
+
+    function makeCircular(id, ulid)
+    {
+        [].slice.call(document.querySelectorAll('#' + id)).forEach(function (el)
+        {
+            new SelectFx(el, ulid, {
+                stickyPlaceholder: true,
+                onChange: function (val)
+                {
+                    /*var img = document.createElement('img');
+                    img.src = 'img/' + val + '.png';
+                    img.onload = function ()
+                    {
+                        document.querySelector('span.cs-placeholder').style.backgroundImage = 'url(img/' + val + '.png)';
+                    };*/
+                }
+            });
+        });
     }
 
     /*function selectJobs()
