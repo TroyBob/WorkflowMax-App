@@ -2,6 +2,7 @@
 
 (function () {
     "use strict";
+    var cJob = "Jobs";
 
     // The Office initialize function must be run each time a new page is loaded
     Office.initialize = function (reason)
@@ -38,11 +39,11 @@
 
     function runApp(email)
     {
-        var list = "https://api.workflowmax.com/client.api/list?apiKey=14C10292983D48CE86E1AA1FE0F8DDFE&accountKey=8A39F28D022B4366975D6FCDB180C839";
+       // var list = "https://api.workflowmax.com/client.api/list?apiKey=14C10292983D48CE86E1AA1FE0F8DDFE&accountKey=8A39F28D022B4366975D6FCDB180C839";
 
-        var xmlDoc = getXML(list);
+       // var xmlDoc = getXML(list);
 
-        var returnID = getID(xmlDoc, email); // Gets the Company ID of the sender email. 
+        //var returnID = getID(xmlDoc, email); // Gets the Company ID of the sender email. 
 
         //document.getElementById("Email").innerHTML = "<b>Email : </b>" + email;
 
@@ -51,13 +52,15 @@
         var staffID = getStaffID();
 
         //Prints jobs that are assigned to you.
-        printJobs(returnID, staffID);
+        printJobs(staffID);
 
         var id = "Jobs";
         var circle = "Buttons";
 
         makePretty(document.getElementById("selectJobs").id, id);
-        makeCircular(document.getElementById("circular").id, circle);
+
+
+        
     }
 
     //Uploads the attachment of the email if there is one.
@@ -91,26 +94,30 @@
     //Uploads the content of the email
     function uploadNote()
     {
+        
         //Get the content of email. 
         var item = Office.context.mailbox.item.body.getAsync("text", callback);
     }
 
     function callback(asyncResult)
     {
-        //Get the currently selected job in dropdown menu.
+        
         var notetext = asyncResult.value;
-        var jobs = document.getElementById("selectJobs").options.selectedIndex;
-        var currentJob = document.getElementById("selectJobs").options[jobs].text;
+
+        var a = notetext.toString();
+
+        //app.showNotification(notetext);
 
         var apicall = "https://api.workflowmax.com/job.api/note?apiKey=14C10292983D48CE86E1AA1FE0F8DDFE&accountKey=8A39F28D022B4366975D6FCDB180C839";
 
-        var noteXML = "<Note><Job>" + currentJob + "</Job><Title>Email content</Title><Text>" + asyncResult.value + "</Text></Note>"; // XML representing the note.
+        var noteXML = "<Note><Job>" + cJob + "</Job><Title>Email content</Title><Text>" + notetext + "</Text></Note>"; // XML representing the note.
 
         var xhr = new XMLHttpRequest(); // Create a new XMLHTTPRequest
 
         xhr.open('POST', apicall); 
 
         xhr.send(noteXML); //Send the note to workflowmax via XMLHttpRequest
+        
     }
 
     //Adds a timesheet entry.
@@ -309,7 +316,7 @@
         }
     }
 
-    function printJobs(clientID, staffID)
+    function printJobs(staffID)
     {
         var dropdown = document.getElementById("selectJobs");
 
@@ -336,8 +343,11 @@
 
         var jobID = name.substring(0, 7);
 
+        cJob = jobID;
+
         if (jobID != "Jobs")
         {
+            makeCircular(document.getElementById("circular").id, "circle");
             $('#selectTasks').empty(); //Empty list of tasks.
 
             var id = "Tasks";
@@ -356,8 +366,31 @@
             }
 
             makePretty(document.getElementById("selectTasks").id, id);
+            makeCircular(document.getElementById("circular2").id, "circle2");
         }
     }
+
+    //Evaluate which button was pressed
+    function processAction(val)
+    {
+
+        
+        switch (val)
+        {
+            case '1':
+                //uploadAttachment();
+                break;
+            case '2':
+                uploadNote();
+                break;
+            case '3':
+                uploadTimesheet();
+                break;
+            default:
+                break;
+        }
+    }
+
 
     function makePretty(id, ulid)
     {
@@ -375,12 +408,8 @@
                 stickyPlaceholder: true,
                 onChange: function (val)
                 {
-                    /*var img = document.createElement('img');
-                    img.src = 'img/' + val + '.png';
-                    img.onload = function ()
-                    {
-                        document.querySelector('span.cs-placeholder').style.backgroundImage = 'url(img/' + val + '.png)';
-                    };*/
+                    
+                    processAction(val);
                 }
             });
         });

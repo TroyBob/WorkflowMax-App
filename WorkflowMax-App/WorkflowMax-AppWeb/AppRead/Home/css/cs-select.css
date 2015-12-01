@@ -28,8 +28,8 @@ div.cs-select:focus {
 	display: block;
 	position: relative;
 	cursor: pointer;
-	padding: 1em;
-	white-space: nowrap;
+	padding: 0.5em;
+	/*white-space: nowrap;*/
 	/*overflow: hidden;*/
 	text-overflow: ellipsis;
 }
@@ -52,7 +52,7 @@ div.cs-select:focus {
 }
 
 .cs-select > span::after {
-	content: '\25BE';
+	/*content: '\25BE';*/
 }
 
 .cs-select .cs-selected span::after {

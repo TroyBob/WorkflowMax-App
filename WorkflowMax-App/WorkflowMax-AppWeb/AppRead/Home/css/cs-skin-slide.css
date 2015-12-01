@@ -12,7 +12,7 @@
 div.cs-skin-slide {
 	color: #595A5C;
 	/*font-size: 1.5em;*/
-	width: 300px;
+	width: 100px;
 }
 
 @media screen and (max-width: 30em) {
@@ -54,14 +54,14 @@ div.cs-skin-slide::before {
 	opacity: 0;
 }
 
-.cs-skin-slide > span::after,
+/*.cs-skin-slide > span::after,
 .cs-skin-slide.cs-active > span::after {
 	font-family: 'icomoon';
 	content: '\e00f';
 	color: #595A5C;
 	-webkit-backface-visibility: hidden;
 	backface-visibility: hidden;
-}
+}*/
 
 .cs-skin-slide.cs-active > span::after {
 	-webkit-transform: translate3d(0,-50%,0);
@@ -75,8 +75,8 @@ div.cs-skin-slide::before {
 	padding: 1.9em 0;
 	top: 50%;
 	left: 30%;
-	-webkit-transform: translate3d(-50%,-50%,0);
-	transform: translate3d(-50%,-50%,0);
+	-webkit-transform: translate3d(-50%,-20%,0);
+	transform: translate3d(-50%,-20%,0);
 }
 
 @media screen and (max-width: 30em) {
