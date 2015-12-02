@@ -59,7 +59,7 @@
 		// if we want to be redirected when we click an option, we need to define a data-link attr on the option of the native select element
 		newTab : true,
 		// when opening the select element, the default placeholder (if any) is shown
-		stickyPlaceholder : true,
+		stickyPlaceholder : false,
 		// callback when changing the value
 		onChange : function( val ) { return false; }
 	}
@@ -123,6 +123,7 @@
 			return '<li ' + optclass + link + ' data-option data-value="' + el.value + '"><span>' + el.textContent + '</span></li>';
 		};
 
+		var count = 1;
 		[].slice.call( this.el.children ).forEach( function(el) {
 			if( el.disabled ) { return; }
 
@@ -132,19 +133,22 @@
 				options += createOptionHTML(el);
 			}
 			else if( tag === 'optgroup' ) {
-				options += '<li class="cs-optgroup"><span>' + el.label + '</span><ul>';
+				options += '<li class="cs-optgroup" id="' + count + '"><span>' + el.label + '</span><ul>';
 				[].slice.call( el.children ).forEach( function(opt) {
 					options += createOptionHTML(opt);
 				} );
 				options += '</ul></li>';
 			}
+			count++;
 		} );
 
 		var opts_el = '<div class="cs-options" ><ul id ="' + this.id + '">' + options + '</ul></div>';
-		this.selEl = document.createElement( 'div' );
+		this.selEl = document.createElement('div');
+		this.selEl.setAttribute("id", this.id + "2");
+		this.selEl.setAttribute("name", "BLAH");
 		this.selEl.className = this.el.className;
 		this.selEl.tabIndex = this.el.tabIndex;
-		this.selEl.innerHTML = '<span class="cs-placeholder">' + this.selectedOpt.textContent + '</span>' + opts_el;
+		this.selEl.innerHTML = '<span class="cs-placeholder" id = "' + this.id + '3">' + this.selectedOpt.textContent + '</span>' + opts_el;
 		this.el.parentNode.appendChild( this.selEl );
 		this.selEl.appendChild(this.el);
 	}

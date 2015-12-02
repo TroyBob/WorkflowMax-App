@@ -3,8 +3,9 @@
 (function () {
     "use strict";
     var cJob = "Jobs";
+    var first = true;
 
-    // The Office initialize function must be run each time a new page is loaded
+    // The Office initialize function must be run each time a new page is loaded.
     Office.initialize = function (reason)
     {
         $(document).ready(function () {
@@ -14,13 +15,21 @@
 
             runApp(sender_email); // Main function
 
-            //Event listener functions for clickable buttons.
+            // Event listener functions for clickable buttons.
             $("#uploadNote").click(uploadNote);
             $("#uploadTimesheet").click(uploadTimesheet);
             $("#uploadAttachment").click(uploadAttachment);
+            $(document).on('keydown', function (e)
+            {
+                if (e.keyCode == 65)
+                {
+                    app.showNotification("blah");
+                }
+                test(e)
+            });
             $("ul#Jobs").on('click', 'li', function ()
             {
-                printTasks($(this));
+                printTasks($(this));       
             }
             );
             
@@ -39,49 +48,32 @@
 
     function runApp(email)
     {
-       // var list = "https://api.workflowmax.com/client.api/list?apiKey=14C10292983D48CE86E1AA1FE0F8DDFE&accountKey=8A39F28D022B4366975D6FCDB180C839";
-
-       // var xmlDoc = getXML(list);
-
-        //var returnID = getID(xmlDoc, email); // Gets the Company ID of the sender email. 
-
-        //document.getElementById("Email").innerHTML = "<b>Email : </b>" + email;
-
-        //document.getElementById("CompanyID").innerHTML = "<b>Company ID : </b>" + returnID;
+        var id = "Jobs";
 
         var staffID = getStaffID();
 
-        //Prints jobs that are assigned to you.
+        // Prints jobs that are assigned to you.
         printJobs(staffID);
 
-        var id = "Jobs";
-        var circle = "Buttons";
-
-        makePretty(document.getElementById("selectJobs").id, id);
-
-
-        
+        makePretty(document.getElementById("selectJobs").id, id); // Makes the fancy looking job list.
     }
 
-    //Uploads the attachment of the email if there is one.
+    // Uploads the attachment of the email if there is one.
     function uploadAttachment()
     {
         if (Office.context.mailbox.item.attachments == undefined)
         {
-            app.showNotification("Upload Attachment Error", "Attachments are not supported by your Exchange server.");
+            app.showNotification("Sorry attachments are not supported by your Exchange server.");
         }
         else if (Office.context.mailbox.item.attachments.length == 0)
         {
-            app.showNotification("Upload Attachment Error", "There are no attachments on this item.");
+            app.showNotification("Oops there are no attachments on this email.");
         }
         else
         {
-            var jobs = document.getElementById("selectJobs").options.selectedIndex;
-            var currentJob = document.getElementById("selectJobs").options[jobs].text;
-
             var apicall = "https://api.workflowmax.com/job.api/document?apiKey=14C10292983D48CE86E1AA1FE0F8DDFE&accountKey=8A39F28D022B4366975D6FCDB180C839";
 
-            var documentXML = "<Document><Job>" + currentJob + "</Job><Title>Document Title</Title><Text>Note for document</Text><FileName>test.txt</FileName><Content>" + string64 + "</Content></Document>";
+            var documentXML = "<Document><Job>" + cJob + "</Job><Title>Document Title</Title><Text>Note for document</Text><FileName>test.txt</FileName><Content>" + string64 + "</Content></Document>";
 
             var xhr = new XMLHttpRequest();
 
@@ -91,11 +83,11 @@
         }
     }
 
-    //Uploads the content of the email
+    // Uploads the content of the email
     function uploadNote()
     {
         
-        //Get the content of email. 
+        // Get the content of email. 
         var item = Office.context.mailbox.item.body.getAsync("text", callback);
     }
 
@@ -116,18 +108,14 @@
 
         xhr.open('POST', apicall); 
 
-        xhr.send(noteXML); //Send the note to workflowmax via XMLHttpRequest
+        xhr.send(noteXML); // Send the note to workflowmax via XMLHttpRequest
         
     }
 
-    //Adds a timesheet entry.
+    // Adds a timesheet entry.
     function uploadTimesheet()
     {
-        //Get the currently selected job in dropdown menu.
-        var jobs = document.getElementById("selectJobs").options.selectedIndex;
-        var currentJob = document.getElementById("selectJobs").options[jobs].text;
-        
-        var task = getTask(currentJob);
+        var task = getTask(cJob);
     }
 
     function getTask(jobID)
@@ -156,7 +144,7 @@
             }
         }
 
-        //If the email processing task does not exist; create one and add 15 minutes to it.
+        // If the email processing task does not exist; create one and add 15 minutes to it.
         if (!foundtask)
         {
             createTask(jobID);
@@ -167,42 +155,19 @@
         return tasklist;
     }
 
-    //Function to return date in the form YYYYMMDD, to conform to WorkflowMax format.
-    function getDate()
-    {
-        var date = new Date();
-
-        var month = date.getMonth()+1;
-        var day = date.getDate();
-
-        if (date.getMonth() < 10)
-        {
-            month = "0" + month;
-        }
-
-        if (date.getDate() < 10)
-        {
-            day = "0" + day;
-        }
-
-        var datestring = "" + date.getFullYear() + month + day;
-
-        return datestring;
-    }
-
     function getStaffID()
-    {
-        //Get email of the user.
+    { 
+        // Get email of the user.
         var email = Office.context.mailbox.userProfile.emailAddress;
 
         var apicall = "https://api.workflowmax.com/staff.api/list?apiKey=14C10292983D48CE86E1AA1FE0F8DDFE&accountKey=8A39F28D022B4366975D6FCDB180C839";
 
-        //Get the list of all staff
+        // Get the list of all staff
         var staffdetails = getXML(apicall);
 
         var stafflist = staffdetails.getElementsByTagName("Staff");
 
-        //Find the staff 
+        // Find the staff 
         for(var i = 0; i < stafflist.length; i++)
         {
             var tempEmail = stafflist[i].getElementsByTagName("Email")[0].childNodes[0].nodeValue;
@@ -210,14 +175,14 @@
 
             if(tempEmail == email)
             {
-                return tempID; //Returns the staff ID if found
+                return tempID; // Returns the staff ID if found.
             }
         }
 
-        return null; //Return null if the staff is not found (this user is not a staff member)
+        return null; // Return null if the staff is not found (this user is not a staff member).
     }
 
-    //Function to add 15 minutes to the email processing task
+    // Function to add 15 minutes to the email processing task.
     function updateTask(jobID, taskID)
     {
         var noteText = document.getElementById("Note").value;
@@ -260,7 +225,7 @@
         }
     }
 
-    //Creates the email processing task
+    // Creates the email processing task.
     function createTask(jobID)
     {
         var taskID = "1772154";
@@ -276,6 +241,8 @@
         xhr.send(taskXML);
     }
 
+
+    // Returns an xml document from given api call; used for GET requests.
     function getXML(list)
     {
         var thisXMLhttp = new XMLHttpRequest();
@@ -286,6 +253,154 @@
         return thisXMLDoc;
     }
 
+
+    // Prints all the jobs assigned to the user of the application.
+    function printJobs(staffID)
+    {
+        var dropdown = document.getElementById("selectJobs");
+
+        // Gets the list of jobs assigned to this staff member
+        var jobList = "https://api.workflowmax.com/job.api/staff/" + staffID + "?apiKey=14C10292983D48CE86E1AA1FE0F8DDFE&accountKey=8A39F28D022B4366975D6FCDB180C839";
+
+        var jobsXML = getXML(jobList);
+
+        var numJobs = jobsXML.getElementsByTagName("Job");
+
+        for (var i = 0; i < numJobs.length; i++)
+        {
+            var tempJobID = numJobs[i].getElementsByTagName("ID")[0].childNodes[0].nodeValue;
+            var tempJobName = numJobs[i].getElementsByTagName("Name")[0].childNodes[0].nodeValue;
+            //var tempClientID = numJobs[i].getElementsByTagName("ID")[1].childNodes[0].nodeValue;
+
+            $('#selectJobs').append('<option>' + tempJobID + '-' + tempJobName + '</option>');
+        }
+    }
+
+    function printTasks(job)
+    {
+        var name = job.attr('data-value');
+
+        if (name != "Jobs")
+        {
+            // Get the job id part of the string (first 8 characters)
+            cJob = name.substring(0, 7);
+
+            if (first)
+            {
+                makeCircular(document.getElementById("circular").id, "circle"); // Create the first 'hamburger' icon next to job list.
+            }
+            
+            $('#selectTasks').empty(); // Empty list of tasks.
+
+            $('#selectTasks').append('<option selected>Tasks</option>'); // Add default selection.
+
+            if (!first)
+            {
+                $("#Tasks3").text("Tasks");
+            }
+
+            var id = "Tasks";
+
+            var apicall = "https://api.workflowmax.com/job.api/get/" + cJob + "?apiKey=14C10292983D48CE86E1AA1FE0F8DDFE&accountKey=8A39F28D022B4366975D6FCDB180C839";
+
+            var jobdetails = getXML(apicall);
+
+            var numTasks = jobdetails.getElementsByTagName("Task");
+
+            for (var i = 0; i < numTasks.length; i++)
+            {
+                var tempTaskName = numTasks[i].getElementsByTagName("Name")[0].childNodes[0].nodeValue;
+
+                if (first)
+                {
+                    $('#selectTasks').append('<option>' + tempTaskName + '</option>'); // Append the current job's list of tasks.
+                }
+                else
+                {
+                    
+                }    
+            }
+
+            if (first)
+            {
+                makePretty(document.getElementById("selectTasks").id, id); // Create the fancy looking task list.
+                makeCircular(document.getElementById("circular2").id, "circle2"); // Create the second 'hamburger' icon next to task list.
+            }
+        }
+
+        first = false;
+    }
+
+    // Evaluate which button was pressed.
+    function processAction(val)
+    {
+        switch (val)
+        {
+            case '1':
+                //uploadAttachment();
+                break;
+            case '2':
+                uploadNote();
+                break;
+            case '3':
+                uploadTimesheet();
+                break;
+            default:
+                break;
+        }
+    }
+
+    // Function to return date in the form YYYYMMDD, to conform to WorkflowMax format.
+    function getDate()
+    {
+        var date = new Date();
+
+        var month = date.getMonth()+1;
+        var day = date.getDate();
+
+        if (date.getMonth() < 10)
+        {
+            month = "0" + month;
+        }
+
+        if (date.getDate() < 10)
+        {
+            day = "0" + day;
+        }
+
+        var datestring = "" + date.getFullYear() + month + day;
+
+        return datestring;
+    }
+
+    // Function to make the standard list of items.
+    function makePretty(id, ulid)
+    {
+        [].slice.call(document.querySelectorAll('#' + id)).forEach(function (el)
+        {
+            new SelectFx(el, ulid);
+        });
+    }
+
+    // Function to make the 'hamburger' circular select icon
+    function makeCircular(id, ulid)
+    {
+        [].slice.call(document.querySelectorAll('#' + id)).forEach(function (el)
+        {
+            new SelectFx(el, ulid, {
+                stickyPlaceholder: true,
+                onChange: function (val)
+                {
+                    
+                    processAction(val);
+                }
+            });
+        });
+    }
+
+    /*Deprecated/unneeded functions*/
+    
+     /*
     function getID(passedXML, emailString)
     {
         var clientNum = passedXML.getElementsByTagName("Client"); 
@@ -314,106 +429,7 @@
                 thisEmail = "null";
             }
         }
-    }
-
-    function printJobs(staffID)
-    {
-        var dropdown = document.getElementById("selectJobs");
-
-        //Gets the list of jobs assigned to this staff member
-        var jobList = "https://api.workflowmax.com/job.api/staff/" + staffID + "?apiKey=14C10292983D48CE86E1AA1FE0F8DDFE&accountKey=8A39F28D022B4366975D6FCDB180C839";
-
-        var jobsXML = getXML(jobList);
-
-        var numJobs = jobsXML.getElementsByTagName("Job");
-
-        for (var i = 0; i < numJobs.length; i++)
-        {
-            var tempJobID = numJobs[i].getElementsByTagName("ID")[0].childNodes[0].nodeValue;
-            var tempJobName = numJobs[i].getElementsByTagName("Name")[0].childNodes[0].nodeValue;
-            //var tempClientID = numJobs[i].getElementsByTagName("ID")[1].childNodes[0].nodeValue;
-
-            $('#selectJobs').append('<option>' + tempJobID + '-' + tempJobName + '</option>');
-        }
-    }
-
-    function printTasks(job)
-    {
-        var name = job.attr('data-value');
-
-        var jobID = name.substring(0, 7);
-
-        cJob = jobID;
-
-        if (jobID != "Jobs")
-        {
-            makeCircular(document.getElementById("circular").id, "circle");
-            $('#selectTasks').empty(); //Empty list of tasks.
-
-            var id = "Tasks";
-
-            var apicall = "https://api.workflowmax.com/job.api/get/" + jobID + "?apiKey=14C10292983D48CE86E1AA1FE0F8DDFE&accountKey=8A39F28D022B4366975D6FCDB180C839";
-
-            var jobdetails = getXML(apicall);
-
-            var numTasks = jobdetails.getElementsByTagName("Task");
-
-            for (var i = 0; i < numTasks.length; i++)
-            {
-                var tempTaskName = numTasks[i].getElementsByTagName("Name")[0].childNodes[0].nodeValue;
-
-                $('#selectTasks').append('<option>' + tempTaskName + '</option>'); //Append the current job's list of tasks.
-            }
-
-            makePretty(document.getElementById("selectTasks").id, id);
-            makeCircular(document.getElementById("circular2").id, "circle2");
-        }
-    }
-
-    //Evaluate which button was pressed
-    function processAction(val)
-    {
-
-        
-        switch (val)
-        {
-            case '1':
-                //uploadAttachment();
-                break;
-            case '2':
-                uploadNote();
-                break;
-            case '3':
-                uploadTimesheet();
-                break;
-            default:
-                break;
-        }
-    }
-
-
-    function makePretty(id, ulid)
-    {
-        [].slice.call(document.querySelectorAll('#' + id)).forEach(function (el)
-        {
-            new SelectFx(el, ulid);
-        });
-    }
-
-    function makeCircular(id, ulid)
-    {
-        [].slice.call(document.querySelectorAll('#' + id)).forEach(function (el)
-        {
-            new SelectFx(el, ulid, {
-                stickyPlaceholder: true,
-                onChange: function (val)
-                {
-                    
-                    processAction(val);
-                }
-            });
-        });
-    }
+    }*/
 
     /*function selectJobs()
     {
