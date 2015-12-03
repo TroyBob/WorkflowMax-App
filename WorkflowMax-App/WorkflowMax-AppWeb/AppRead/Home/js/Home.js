@@ -3,6 +3,7 @@
 (function () {
     "use strict";
     var cJob = "Jobs";
+    var cTask = "Tasks";
     var first = true;
 
     // The Office initialize function must be run each time a new page is loaded.
@@ -19,20 +20,35 @@
             $("#uploadNote").click(uploadNote);
             $("#uploadTimesheet").click(uploadTimesheet);
             $("#uploadAttachment").click(uploadAttachment);
+            $("#Jobs3").on('click', function ()
+            {
+                if(!first)
+                document.getElementById("test").style.display = "none";
+            });
             $(document).on('keydown', function (e)
             {
                 if (e.keyCode == 65)
                 {
-                    app.showNotification("blah");
+                    var a = document.getElementById("Tasks2");
+                    a.parentNode.removeChild(a);
+                    //app.showNotification("blah");
                 }
-                test(e)
             });
+
             $("ul#Jobs").on('click', 'li', function ()
             {
-                printTasks($(this));       
-            }
-            );
-            
+                app.showNotification("hello");
+                document.getElementById("test").style.display = "";
+                printTasks($(this));
+                
+            });
+
+            $("ul#Tasks").on('click', 'li', function ()
+            {
+                app.showNotification("hello");
+                cTask = $(this).attr('data-value');
+                
+            });
         });
     };
 
@@ -86,14 +102,12 @@
     // Uploads the content of the email
     function uploadNote()
     {
-        
         // Get the content of email. 
         var item = Office.context.mailbox.item.body.getAsync("text", callback);
     }
 
     function callback(asyncResult)
     {
-        
         var notetext = asyncResult.value;
 
         var a = notetext.toString();
@@ -289,15 +303,25 @@
             {
                 makeCircular(document.getElementById("circular").id, "circle"); // Create the first 'hamburger' icon next to job list.
             }
-            
-            $('#selectTasks').empty(); // Empty list of tasks.
+            else
+            {
+                $('#test').empty();
+                $('#test').append('<select id="selectTasks" class="cs-select cs-skin-slide" hidden="hidden" disabled="disabled"><option selected>Tasks</option></select>' +
+                                   "<select class='cs-select cs-skin-circular' id='circular2' hidden='hidden' disabled='disabled'" +
+                                   "<option value='' disabled selected>Select an activity</option>" +
+                                   "<option value='1'>&#57605;</option>");
+            }
 
-            $('#selectTasks').append('<option selected>Tasks</option>'); // Add default selection.
+            //$('#selectTasks').append('<option selected>Tasks</option>'); // Add default selection.
+
+            /*$("#Tasks3").text("Tasks");
 
             if (!first)
             {
-                $("#Tasks3").text("Tasks");
-            }
+                $("#Tasks").empty();
+                $('#Tasks').append('<li data-option data-value="Tasks" class="cs-selected"><span>Tasks</span></li>');
+                     
+            }*/
 
             var id = "Tasks";
 
@@ -311,21 +335,10 @@
             {
                 var tempTaskName = numTasks[i].getElementsByTagName("Name")[0].childNodes[0].nodeValue;
 
-                if (first)
-                {
-                    $('#selectTasks').append('<option>' + tempTaskName + '</option>'); // Append the current job's list of tasks.
-                }
-                else
-                {
-                    
-                }    
+                $('#selectTasks').append('<option>' + tempTaskName + '</option>'); // Append the current job's list of tasks.
             }
-
-            if (first)
-            {
                 makePretty(document.getElementById("selectTasks").id, id); // Create the fancy looking task list.
                 makeCircular(document.getElementById("circular2").id, "circle2"); // Create the second 'hamburger' icon next to task list.
-            }
         }
 
         first = false;
@@ -334,6 +347,7 @@
     // Evaluate which button was pressed.
     function processAction(val)
     {
+        app.showNotification(cJob);
         switch (val)
         {
             case '1':
@@ -391,7 +405,6 @@
                 stickyPlaceholder: true,
                 onChange: function (val)
                 {
-                    
                     processAction(val);
                 }
             });

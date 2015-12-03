@@ -11,15 +11,13 @@
 ;( function( window ) {
 	
     'use strict';
-   
-
+  
 	/**
 	 * based on from https://github.com/inuyaksa/jquery.nicescroll/blob/master/jquery.nicescroll.js
 	 */
 	function hasParent( e, p ) {
 		if (!e) return false;
 		var el = e.target || e.srcElement || e || false;
-		var a = 'test';
 		while (el && el != p) {
 			el = el.parentNode||false;
 		}

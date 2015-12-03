@@ -9,6 +9,17 @@
 	font-style: normal;
 }
 
+@font-face {
+    font-family: "SPO365Icons";
+    src: url('../fonts/office/office365icons.eot');
+    src: url('../fonts/office/office365icons.eot?#iefix') format('embedded-opentype'), 
+         url('../fonts/office/office365icons.woff') format('woff'), 
+         url('../fonts/office/office365icons.ttf') format('truetype'), 
+         url('../fonts/office/office365icons.svg#web') format('svg');
+    font-style: normal;
+    font-weight: normal;
+}
+
 div.cs-skin-circular {
 	background: transparent;
 	font-size: 1em;
@@ -111,28 +122,28 @@ div.cs-skin-circular {
 	opacity: 0.7;
 }
 
-.cs-skin-circular .cs-options li:first-child { background-image: url(../img/1.png); }
+/*.cs-skin-circular .cs-options li:first-child { background-image: url(../img/1.png); }
 .cs-skin-circular .cs-options li:nth-child(2) { background-image: url(../img/2.png); }
 .cs-skin-circular .cs-options li:nth-child(3) { background-image: url(../img/3.png); }
 .cs-skin-circular .cs-options li:nth-child(4) { background-image: url(../img/4.png); }
 .cs-skin-circular .cs-options li:nth-child(5) { background-image: url(../img/5.png); }
 .cs-skin-circular .cs-options li:nth-child(6) { background-image: url(../img/6.png); }
 .cs-skin-circular .cs-options li:nth-child(7) { background-image: url(../img/7.png); }
-.cs-skin-circular .cs-options li:nth-child(8) { background-image: url(../img/8.png); }
+.cs-skin-circular .cs-options li:nth-child(8) { background-image: url(../img/8.png); }*/
 
 .cs-skin-circular.cs-active .cs-options li:first-child {
-	-webkit-transform: translate3d(80px, -80px, 0);
-	transform: translate3d(80px, -80px, 0);
+	-webkit-transform: translate3d(10px, -20px, 0);
+	transform: translate3d(10px, -20px, 0);
 }
 
 .cs-skin-circular.cs-active .cs-options li:nth-child(2) {
-	-webkit-transform: translate3d(100px, 0, 0);
-	transform: translate3d(100px, 0, 0);
+	-webkit-transform: translate3d(30px, 0, 0);
+	transform: translate3d(30px, 0, 0);
 }
 
 .cs-skin-circular.cs-active .cs-options li:nth-child(3) {
-	-webkit-transform: translate3d(80px, 80px, 0);
-	transform: translate3d(80px, 80px, 0);
+	-webkit-transform: translate3d(30px, 30px, 0);
+	transform: translate3d(30px, 30px, 0);
 }
 
 .cs-skin-circular.cs-active .cs-options li:nth-child(5) {
@@ -156,7 +167,8 @@ div.cs-skin-circular {
 }
 
 .cs-skin-circular .cs-options li span {
-	display: none;
+	font-family: SPO365Icons;
+    font-size: 3em;
 }
 
 .cs-skin-circular .cs-options li.cs-focus {

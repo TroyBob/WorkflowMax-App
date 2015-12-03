@@ -35,8 +35,8 @@ C:\Users\TroyCumpsty\Source\Repos\WorkflowMax-App\WorkflowMax-App\WorkflowMax-Ap
 C:\Users\TroyCumpsty\Source\Repos\WorkflowMax-App\WorkflowMax-App\WorkflowMax-AppWeb\bin\WorkflowMax-AppWeb.pdb
 C:\Users\TroyCumpsty\Source\Repos\WorkflowMax-App\WorkflowMax-App\WorkflowMax-AppWeb\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
 C:\Users\TroyCumpsty\Source\Repos\WorkflowMax-App\WorkflowMax-App\WorkflowMax-AppWeb\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\TroyCumpsty\Source\Repos\WorkflowMax-App\WorkflowMax-App\WorkflowMax-AppWeb\obj\Debug\WorkflowMax-AppWeb.csprojResolveAssemblyReference.cache
 C:\Users\TroyCumpsty\Source\Repos\WorkflowMax-App\WorkflowMax-App\WorkflowMax-AppWeb\obj\Debug\WorkflowMax_AppWeb.Properties.Resources.resources
 C:\Users\TroyCumpsty\Source\Repos\WorkflowMax-App\WorkflowMax-App\WorkflowMax-AppWeb\obj\Debug\WorkflowMax-AppWeb.csproj.GenerateResource.Cache
 C:\Users\TroyCumpsty\Source\Repos\WorkflowMax-App\WorkflowMax-App\WorkflowMax-AppWeb\obj\Debug\WorkflowMax-AppWeb.dll
 C:\Users\TroyCumpsty\Source\Repos\WorkflowMax-App\WorkflowMax-App\WorkflowMax-AppWeb\obj\Debug\WorkflowMax-AppWeb.pdb
-C:\Users\TroyCumpsty\Source\Repos\WorkflowMax-App\WorkflowMax-App\WorkflowMax-AppWeb\obj\Debug\WorkflowMax-AppWeb.csprojResolveAssemblyReference.cache
