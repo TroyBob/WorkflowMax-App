@@ -33,7 +33,7 @@
     <div class="container">
             <!--<span id="Company"></span><br />-->
             <!--<span id="CompanyID"></span><br />-->
-        <div>
+        <div id="test2">
             <label class="select-label"></label>
             <select id="selectJobs" name="selectJob" class="cs-select cs-skin-slide" hidden="hidden" disabled="disabled">
                 <option selected>Jobs</option>
@@ -43,7 +43,18 @@
                 <option value="1">&#57393;</option>
                 <option value="2">&#57450;</option>
             </select>
-        </div style="">
+            <div class="options">
+                <label>
+                    Time
+                    <select id="time">
+                        <option>5</option>
+                        <option>10</option>
+                        <option>15</option>
+                        <option>20</option>
+                    </select>
+                </label>
+            </div>
+        </div>
         <div id="test">
             <select id="selectTasks" class="cs-select cs-skin-slide" hidden="hidden" disabled="disabled">
                 <option selected>Tasks</option>
@@ -51,9 +62,13 @@
 
             <select class="cs-select cs-skin-circular" id="circular2" hidden="hidden" disabled="disabled">
                 <option value="" disabled selected>Select an activity</option>
-                <option value="1">&#57605;</option>
+                <option value="3">&#57605;</option>
             </select>
         </div>
+        <div id="note" style="display: none">
+            <textarea id="timesheetNote" rows="2" cols="10"></textarea>
+        </div>
+        
 
         <!--<textarea rows="2" cols="10" id="Note"></textarea><br />
         <input type="button" id="uploadNote" value="Upload Note" name="uploadNote" />

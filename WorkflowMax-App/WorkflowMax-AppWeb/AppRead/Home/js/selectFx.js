@@ -143,7 +143,6 @@
 		var opts_el = '<div class="cs-options" ><ul id ="' + this.id + '">' + options + '</ul></div>';
 		this.selEl = document.createElement('div');
 		this.selEl.setAttribute("id", this.id + "2");
-		this.selEl.setAttribute("name", "BLAH");
 		this.selEl.className = this.el.className;
 		this.selEl.tabIndex = this.el.tabIndex;
 		this.selEl.innerHTML = '<span class="cs-placeholder" id = "' + this.id + '3">' + this.selectedOpt.textContent + '</span>' + opts_el;

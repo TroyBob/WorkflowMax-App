@@ -103,24 +103,33 @@ div.cs-skin-slide::before {
 }
 
 .cs-skin-slide.cs-active .cs-options li:nth-child(2) {
+	-webkit-transition-delay: 0.075s;
+	transition-delay: 0.075s;
+}
+
+.cs-skin-slide.cs-active .cs-options li:nth-child(3) {
 	-webkit-transition-delay: 0.1s;
 	transition-delay: 0.1s;
 }
 
-.cs-skin-slide.cs-active .cs-options li:nth-child(3) {
-	-webkit-transition-delay: 0.15s;
-	transition-delay: 0.15s;
-}
-
 .cs-skin-slide.cs-active .cs-options li:nth-child(4) {
-	-webkit-transition-delay: 0.2s;
-	transition-delay: 0.2s;
+	-webkit-transition-delay: 0.125s;
+	transition-delay: 0.125s;
 }
 
 .cs-skin-slide.cs-active .cs-options li:nth-child(5) {
-	-webkit-transition-delay: 0.25s;
-	transition-delay: 0.25s;
-} /* more options need more delay declaration */
+	-webkit-transition-delay: 0.15s;
+	transition-delay: 0.15s;
+}
+.cs-skin-slide.cs-active .cs-options li:nth-child(6) {
+	-webkit-transition-delay: 0.175s;
+	transition-delay: 0.175s;
+}
+.cs-skin-slide.cs-active .cs-options li:nth-child(7) {
+	-webkit-transition-delay: 0.2s;
+	transition-delay: 0.2s;
+}
+ /* more options need more delay declaration */
 
 .cs-skin-slide .cs-options li span {
 	/*text-transform: uppercase;*/
