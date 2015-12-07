@@ -160,23 +160,3 @@ div.cs-skin-slide::before {
 	transform: translate3d(0,-50%,0);
 	font-size: 1.5em;
 }
-
-.icon-camera span::before {
-	content: '\e00b';
-}
-
-.icon-money span::before {
-	content: '\e008';
-}
-
-.icon-heart span::before {
-	content: '\e00a';
-}
-
-.icon-food span::before {
-	content: '\e009';
-}
-
-.icon-shirt span::before {
-	content: '\e00c';
-}

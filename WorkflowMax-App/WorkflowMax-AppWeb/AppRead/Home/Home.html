@@ -30,51 +30,52 @@
     <script src="js/selectFx.js" type="text/javascript"></script>
 </head>
 <body>
-    <div class="container">
-            <!--<span id="Company"></span><br />-->
-            <!--<span id="CompanyID"></span><br />-->
-        <div id="test2">
-            <label class="select-label"></label>
-            <select id="selectJobs" name="selectJob" class="cs-select cs-skin-slide" hidden="hidden" disabled="disabled">
-                <option selected>Jobs</option>
-            </select>
-            <select class="cs-select cs-skin-circular" id="circular" hidden="hidden" disabled="disabled">
-                <option value="" disabled selected>Select an activity</option>
-                <option value="1">&#57393;</option>
-                <option value="2">&#57450;</option>
-            </select>
-            <div class="options">
-                <label>
-                    Time
-                    <select id="time">
-                        <option>5</option>
-                        <option>10</option>
-                        <option>15</option>
-                        <option>20</option>
-                    </select>
-                </label>
+    <div class="main">
+        <div class="left">
+            <div class="icons arrow" id="arrow"><span>&#57482;</span></div>   <!-- Right arrow icon -->
+            <div class="icons selected" id="home"><span>&#57377;</span></div> 
+            <div class="icons" id="person"><span>&#57358;</span></div>  <!-- Person icon -->
+            <div class="icons" id="tickbox"><span>&#57408;</span></div> 
+            <div class="icons" id="settings"><span>&#57397;</span></div>
+            <div class="icons" id="faq"><span>&#57350;</span></div>
+        </div>
+
+
+        <div class="right">
+            <div id="test2">
+                <select id="selectJobs" name="selectJob" class="cs-select cs-skin-slide" hidden="hidden" disabled="disabled">
+                    <option selected>Jobs</option>
+                </select>
+
+                <select class="cs-select cs-skin-circular" id="circular" hidden="hidden" disabled="disabled">
+                    <option value="" disabled selected>Select an activity</option>
+                    <option value="1">&#57393;</option>
+                    <option value="2">&#57450;</option>
+                </select>
+                <div class="options">
+
+                </div>
+            </div>
+
+            <div id="test">
+                <select id="selectTasks" class="cs-select cs-skin-slide" hidden="hidden" disabled="disabled">
+                    <option selected>Tasks</option>
+                </select>
+                <span class="icons">&#57605;</span>
+            </div>
+            <div id="note" style="display: none">
+                <textarea id="timesheetNote" rows="2" cols="10"></textarea>
             </div>
         </div>
-        <div id="test">
-            <select id="selectTasks" class="cs-select cs-skin-slide" hidden="hidden" disabled="disabled">
-                <option selected>Tasks</option>
-            </select>
+    </div>
 
-            <select class="cs-select cs-skin-circular" id="circular2" hidden="hidden" disabled="disabled">
+
+            <!--<select class="cs-select cs-skin-circular" id="circular2" hidden="hidden" disabled="disabled">
                 <option value="" disabled selected>Select an activity</option>
                 <option value="3">&#57605;</option>
             </select>
         </div>
-        <div id="note" style="display: none">
-            <textarea id="timesheetNote" rows="2" cols="10"></textarea>
-        </div>
-        
 
-        <!--<textarea rows="2" cols="10" id="Note"></textarea><br />
-        <input type="button" id="uploadNote" value="Upload Note" name="uploadNote" />
-        <input type="button" id="uploadTimesheet" value="+" name="uploadTimesheet" />
-        <input type="button" id="uploadAttachment" value="Upload Attachment" name="uploadAttachment" />-->
-        <!--<input type="text" id="timesheetMinutes" name="timesheetMinutes" align="bottom" />-->
-    </div>
+    </div>-->
 </body>
 </html>

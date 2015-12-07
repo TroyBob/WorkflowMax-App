@@ -16,13 +16,12 @@
 body {
 	/*background: #8dc63f;*/
     /*3498db*/
-	color: #fff;
 	font-weight: 400;
-	font-size: 0.9em;
-	padding: 5px 5px;
+	/*font-size: 0.9em;*/
+	/*padding: 5px 5px;*/
     position: page;
-	border-right: 10px solid #fff;
-	border-left: 50px solid #22C1E1;
+	/*border-right: 10px solid #fff;*/
+	/*border-left: 50px solid #22C1E1;*/
 	font-family: 'Raleway', Arial, sans-serif;
 }
 

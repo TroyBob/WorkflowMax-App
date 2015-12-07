@@ -7,6 +7,8 @@
     var cTaskName = "Tasks" // Currently selected task name.
     var first = true; // True when the user first selects a job.
     var staffID = ""; // StaffID of the user.
+    var expanded = false;
+    var selectedIcon = "home"; //ID of the selected icon.
 
     // The Office initialize function must be run each time a new page is loaded.
     Office.initialize = function (reason)
@@ -19,6 +21,12 @@
             runApp(sender_email); // Main function
 
             // Event listener functions.
+            $("#person").on('click', jobIcon);
+            $("#faq").on('click', handleFAQ);
+            $(".icons").on('click', function ()
+            {
+                iconSelect($(this));
+            });
             $("#Jobs3").on('click', function ()
             {    
                 if (!first)
@@ -30,12 +38,89 @@
 
             $("ul#Jobs").on('click', 'li', function ()
             {
+                
                 document.getElementById("test").style.display = ""; // Redisplays the task list after a job is selected.
                 document.getElementById("note").style.display = ""; // Redisplays the textbox after a job is selected.
                 printTasks($(this));   
             });
         });
     };
+
+    function iconSelect(icon)
+    {
+        if(icon.attr('id') == "arrow")
+        {
+            expandMenu();
+        }
+        else
+        {
+            if(!icon.hasClass("selected"))
+            {
+                $("#" + selectedIcon).removeClass("selected");
+
+                icon.addClass("selected");
+                selectedIcon = icon.attr('id'); // Update the currently selected icon.
+            }
+        }
+    }
+
+    function handleFAQ()
+    {
+
+
+    }
+
+    function jobIcon()
+    {
+
+    }
+
+    // Function to handle expansion of menu
+    function expandMenu()
+    {
+        if (!expanded)
+        {
+            $(".left").width("8%");
+            $(".right").width("92%");
+            $("#arrow span").html("&#57481;");
+            $(".icons").css("text-align", "left");
+            document.getElementById("arrow").style.textAlign = "right";
+
+            addText();
+
+            expanded = true;
+        }
+        else
+        {
+            $(".left").width("3%");
+            $(".right").width("97%");
+            $("#arrow span").html("&#57482;");
+            $(".icons").css("text-align", "center");
+            document.getElementById("arrow").style.textAlign = "left";
+
+            removeText();
+
+            expanded = false;
+        }
+    }
+
+    function removeText()
+    {
+        $("#home span").html("&#57377;");   
+        $("#person span").html("&#57358;");
+        $("#tickbox span").html("&#57408;");
+        $("#settings span").html("&#57397;");
+        $("#faq span").html("&#57350;");
+    }
+
+    function addText()
+    {
+        $("#home span").append(" Home");
+        $("#person span").append(" Clients");
+        $("#tickbox span").append(" Tasks");
+        $("#settings span").append(" Settings");
+        $("#faq span").append(" Support");
+    }
 
     // Function to get the sender email.
     function getEmail()
@@ -227,9 +312,8 @@
             {
                 $('#test').empty();
                 $('#test').append('<select id="selectTasks" class="cs-select cs-skin-slide" hidden="hidden" disabled="disabled"><option selected>Tasks</option></select>' +
-                                   "<select class='cs-select cs-skin-circular' id='circular2' hidden='hidden' disabled='disabled'" +
-                                   "<option value='' disabled selected>Select an activity</option>" +
-                                   "<option value='1'>&#57605;</option>");
+                                   "<span class='icons'>&#57605;</span>");
+                                
             }
 
             //$('#selectTasks').append('<option selected>Tasks</option>'); // Add default selection.
@@ -259,7 +343,7 @@
                 $('#selectTasks').append('<option value="' + tempTaskID + '">' + tempTaskName + '</option>'); // Append the current job's list of tasks.
             }
                 makeTaskList(document.getElementById("selectTasks").id, id); // Create the fancy looking task list.
-                makeHamburgerIcon(document.getElementById("circular2").id, "circle2"); // Create the second 'hamburger' icon next to task list.
+                //makeHamburgerIcon(document.getElementById("circular2").id, "circle2"); // Create the second 'hamburger' icon next to task list.
         }
 
 
