@@ -34,7 +34,7 @@
         <div class="left">
             <div class="icons arrow" id="arrow"><span>&#57482;</span></div>   <!-- Right arrow icon -->
             <div class="icons selected" id="home"><span>&#57377;</span></div> 
-            <div class="icons" id="person"><span>&#57358;</span></div>  <!-- Person icon -->
+            <div class="icons" id="client"><span>&#57358;</span></div>  <!-- Person icon -->
             <div class="icons" id="tickbox"><span>&#57408;</span></div> 
             <div class="icons" id="settings"><span>&#57397;</span></div>
             <div class="icons" id="faq"><span>&#57350;</span></div>
@@ -42,8 +42,10 @@
 
 
         <div class="right">
-            <div id="test2">
-                <select id="selectJobs" name="selectJob" class="cs-select cs-skin-slide" hidden="hidden" disabled="disabled">
+            <div id="homeData" class="bigbox">
+                <span style="font-size: 2em">  50</span> <br />
+                <span style="font-size: 1em" >  Total Clients</span>
+                <!--<select id="selectJobs" name="selectJob" class="cs-select cs-skin-slide" hidden="hidden" disabled="disabled">
                     <option selected>Jobs</option>
                 </select>
 
@@ -54,10 +56,38 @@
                 </select>
                 <div class="options">
 
-                </div>
+                </div>-->
             </div>
 
-            <div id="test">
+            <div id="" hidden="hidden"></div>
+            <div id="settingsData" class="settings" hidden="hidden">
+
+                <form>
+                    <label>
+                        API Key:
+                        <input type="password" />
+                    </label> <br /> <br />
+                    <label>
+                        Account Key:
+                        <input type="password" />
+                    </label>
+
+                    <input id="keySubmitButton" type="button" value="Submit" />
+                </form>
+            </div>
+
+            <div id="faqData" class="faq" hidden="hidden">
+                <label>
+                    Email support:
+                </label>
+                    <textarea id="support" rows="4" cols="50">
+                    </textarea>
+                    <br />
+
+                <input id="emailSubmitButton" type="button" value="Submit" />
+            </div>
+
+            <!--<div id="test">
                 <select id="selectTasks" class="cs-select cs-skin-slide" hidden="hidden" disabled="disabled">
                     <option selected>Tasks</option>
                 </select>
@@ -66,7 +96,7 @@
             <div id="note" style="display: none">
                 <textarea id="timesheetNote" rows="2" cols="10"></textarea>
             </div>
-        </div>
+        </div>-->
     </div>
 
 
@@ -74,8 +104,8 @@
                 <option value="" disabled selected>Select an activity</option>
                 <option value="3">&#57605;</option>
             </select>
-        </div>
+        </div>-->
 
-    </div>-->
+    </div>
 </body>
 </html>

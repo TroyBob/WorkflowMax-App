@@ -77,10 +77,7 @@ a:hover, a:focus {
 .color-8 a { color: #f7941d; }
 .color-8 a:hover, .color-8 a:focus { color: #539eb1; }
 
-section {
-	/*padding: 4% 1em 10%;*/
-	/*text-align: center;*/
-}
+
 
 label.select-label {
 	display: block;

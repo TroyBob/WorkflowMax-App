@@ -10,9 +10,18 @@
     var expanded = false;
     var selectedIcon = "home"; //ID of the selected icon.
 
+    var apiKey = "14C10292983D48CE86E1AA1FE0F8DDFE";    // API key for calls to WorkflowMax API.
+    var accountKey = "8A39F28D022B4366975D6FCDB180C839"; // Account key for calls to WorkflowMax API.
+
+    var clients;
+    var jobs;
+    var tasks;
+
+
     // The Office initialize function must be run each time a new page is loaded.
     Office.initialize = function (reason)
     {
+
         $(document).ready(function () {
             app.initialize();
 
@@ -21,13 +30,23 @@
             runApp(sender_email); // Main function
 
             // Event listener functions.
-            $("#person").on('click', jobIcon);
-            $("#faq").on('click', handleFAQ);
             $(".icons").on('click', function ()
             {
                 iconSelect($(this));
             });
-            $("#Jobs3").on('click', function ()
+
+            $("#keySubmitButton").on('click', function ()
+            {
+
+            });
+
+            $("#emailSubmitButton").on('click', function ()
+            {
+                document.form.submit();
+            });
+
+
+            /*$("#Jobs3").on('click', function ()
             {    
                 if (!first)
                 {
@@ -42,37 +61,93 @@
                 document.getElementById("test").style.display = ""; // Redisplays the task list after a job is selected.
                 document.getElementById("note").style.display = ""; // Redisplays the textbox after a job is selected.
                 printTasks($(this));   
-            });
+            });*/
         });
     };
 
+    // Main function.
+    function runApp(email)
+    {
+        initialisation();
+       
+        displayHomeData();
+    }
+
+    function initialisation()
+    {
+        fillClientList();
+    }
+
     function iconSelect(icon)
     {
-        if(icon.attr('id') == "arrow")
+        if (icon.attr('id') == "arrow")
         {
             expandMenu();
         }
         else
         {
-            if(!icon.hasClass("selected"))
+            if (!icon.hasClass("selected"))
             {
                 $("#" + selectedIcon).removeClass("selected");
+                $("#" + selectedIcon + "Data").hide();
 
                 icon.addClass("selected");
                 selectedIcon = icon.attr('id'); // Update the currently selected icon.
+                
+                $("#" + selectedIcon + "Data").show();
+
+                switch (icon.attr('id'))
+                {
+                    case 'home':
+                        displayHomeData();
+                        break;
+                    case 'client':
+                        displayClients();
+                        break;
+                    case 'tickbox':
+                        displayJobs();
+                        break;
+                    case 'settings':
+                        displaySettings();
+                        break;
+                    case 'faq':
+                        displayFAQ();
+                        break;
+                    default:
+                        break;
+                }
             }
         }
     }
 
-    function handleFAQ()
-    {
 
+
+    function displayHomeData()
+    {
 
     }
 
-    function jobIcon()
+    function displayClients()
     {
 
+    }
+
+    function displayJobs()
+    {
+
+    }
+
+    function displaySettings()
+    {
+
+    }
+
+    function displayFAQ()
+    {
+        var email = "troy@becloudsmart.com";
+        var subject = "SupportBeclousmartApp";
+
+        document.write("<form name='form' action='mailto:" + email + "?Subject=" + subject + "\&body=HiThere' method='post' enctype='text/plain'></form>");
     }
 
     // Function to handle expansion of menu
@@ -132,16 +207,10 @@
         return email;
     }
 
-    function runApp(email)
+    function fillClientList()
     {
-        var id = "Jobs";
 
-        staffID = getStaffID();
 
-        // Prints jobs that are assigned to you.
-        printJobs();
-
-        makeJobList(document.getElementById("selectJobs").id, id); // Makes the fancy looking job list.
     }
 
     // Uploads the attachment of the email if there is one.
@@ -157,7 +226,7 @@
         }
         else
         {
-            var apicall = "https://api.workflowmax.com/job.api/document?apiKey=14C10292983D48CE86E1AA1FE0F8DDFE&accountKey=8A39F28D022B4366975D6FCDB180C839";
+            var apicall = "https://api.workflowmax.com/job.api/document?apiKey="+ apiKey + "&accountKey=" + accountKey;
 
             var documentXML = "<Document><Job>" + cJobID + "</Job><Title>Document Title</Title><Text>Note for document</Text><FileName>test.txt</FileName><Content>" + string64 + "</Content></Document>";
 
@@ -279,7 +348,7 @@
         var dropdown = document.getElementById("selectJobs");
 
         // Gets the list of jobs assigned to this staff member
-        var jobList = "https://api.workflowmax.com/job.api/staff/" + staffID + "?apiKey=14C10292983D48CE86E1AA1FE0F8DDFE&accountKey=8A39F28D022B4366975D6FCDB180C839";
+        var jobList = "https://api.workflowmax.com/job.api/staff/" + staffID + "?apiKey=" + apiKey + "&accountKey=" + accountKey;
 
         var jobsXML = getXML(jobList);
 
@@ -329,7 +398,7 @@
 
             var id = "Tasks";
 
-            var apicall = "https://api.workflowmax.com/job.api/get/" + cJobID + "?apiKey=14C10292983D48CE86E1AA1FE0F8DDFE&accountKey=8A39F28D022B4366975D6FCDB180C839";
+            var apicall = "https://api.workflowmax.com/job.api/get/" + cJobID + "?apiKey=" + apikey + "&accountKey" + accountKey;
 
             var jobdetails = getXML(apicall);
 
