@@ -79,9 +79,16 @@
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="AppRead\App.css" />
     <Content Include="AppRead\App.js" />
-    <Content Include="AppRead\Home\Home.css" />
+    <Content Include="AppRead\Home\css\cs-select.css" />
+    <Content Include="AppRead\Home\css\cs-skin-circular.css" />
+    <Content Include="AppRead\Home\css\cs-skin-slide.css" />
+    <Content Include="AppRead\Home\css\demo.css" />
+    <Content Include="AppRead\Home\css\Home.css" />
+    <Content Include="AppRead\Home\css\normalize.css" />
     <Content Include="AppRead\Home\Home.html" />
-    <Content Include="AppRead\Home\Home.js" />
+    <Content Include="AppRead\Home\js\classie.js" />
+    <Content Include="AppRead\Home\js\Home.js" />
+    <Content Include="AppRead\Home\js\selectFx.js" />
     <Content Include="Content\Office.css" />
     <Content Include="Images\Close.png" />
     <Content Include="Scripts\jquery-1.9.1.js" />
@@ -350,6 +357,7 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
