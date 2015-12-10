@@ -43,6 +43,7 @@
     <UseVSHostingProcess>false</UseVSHostingProcess>
   </PropertyGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="Becloudsmart-OutlookAppManifest\SharePointProjectItem.spdata">
       <SharePointProjectItemId>{86944656-ddb6-463c-9245-c5d8b12254a5}</SharePointProjectItemId>
     </None>

@@ -35,11 +35,7 @@
                 iconSelect($(this));
             });
 
-            $("#keySubmitButton").on('click', function ()
-            {
-
-            });
-
+            $("#keySubmitButton").on('click', updateKeys);
             $("#emailSubmitButton").on('click', function ()
             {
                 
@@ -81,6 +77,12 @@
         staffID = getStaffID();
         fillClientList();
         fillJobList();
+    }
+
+    function updateKeys()
+    {
+
+
     }
 
     function iconSelect(icon)
