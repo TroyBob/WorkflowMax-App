@@ -1,2 +1,0 @@
-bin\Debug\OfficeAppManifests\WorkflowMax-AppManifest.xml
-C:\Users\TroyCumpsty\Source\Repos\WorkflowMax-App\WorkflowMax-App\WorkflowMax-App\bin\Debug\WorkflowMax-App.debugapp
