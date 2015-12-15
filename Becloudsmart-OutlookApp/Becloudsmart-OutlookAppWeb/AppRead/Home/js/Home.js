@@ -17,6 +17,8 @@
     var jobs;
     var tasks;
 
+    var accordionToggles;
+
 
     // The Office initialize function must be run each time a new page is loaded.
     Office.initialize = function (reason)
@@ -41,7 +43,8 @@
                 
             });
 
-
+            $("ul#Clients").on('click', 'li', displayClientInfo);
+            $("ul#Jobs").on('click', 'li', displayJobInfo);
             /*$("#Jobs3").on('click', function ()
             {    
                 if (!first)
@@ -66,10 +69,72 @@
     {
         clients = new Array();
         jobs = new Array();
+        accordionToggles = document.querySelectorAll(".js-accordionTrigger");
+
+        for (var i = 0; i < accordionToggles.length; i++)
+        {
+            accordionToggles[i].addEventListener('click', switchAccordion, false);
+        }
 
         init();
        
         displayHomeData();
+    }
+
+    function displayClientInfo(e)
+    {
+        var id = $(this).attr('data-value');
+
+        app.showNotification(clients[id].email);
+       
+
+    }
+
+    function displayJobInfo(e)
+    {
+        var id = $(this).attr('data-value');
+
+        
+
+    }
+
+    function switchAccordion(e)
+    {
+        e.preventDefault();
+        var thisAnswer = e.target.parentNode.nextElementSibling;
+        var thisQuestion = e.target;
+
+        if(thisAnswer.classList.contains('is-collapsed'))
+        {
+            setAccordionAria(thisQuestion, thisAnswer, 'true');
+        }
+        else
+        {
+            setAccordionAria(thisQuestion, thisAnswer, 'false');
+        }
+        thisQuestion.classList.toggle('is-collapsed');
+        thisQuestion.classList.toggle('is-expanded');
+        thisAnswer.classList.toggle('is-collapsed');
+        thisAnswer.classList.toggle('is-expanded');
+
+        thisAnswer.classList.toggle('animateIn');
+    }
+
+    function setAccordionAria(el1,el2, expanded)
+    {
+        switch(expanded)
+        {
+            case "true":
+                el1.setAttribute('aria-expanded', 'true');
+                el2.setAttribute('aria-hidden', 'false');
+                break;
+            case "false":
+                el1.setAttribute('aria-expanded', 'false');
+                el2.setAttribute('aria-hidden', 'true');
+                break;
+            default:
+                break;
+        }
     }
 
     function init()
@@ -81,8 +146,8 @@
 
     function updateKeys()
     {
-
-
+        apiKey = $("#apikey").val();
+        accountKey = $("#accountkey").val();
     }
 
     function iconSelect(icon)
@@ -244,14 +309,43 @@
 
         for (var i = 0; i < clientlist.length; i++)
         {
+            var tempEmail = clientlist[i].getElementsByTagName("Email")[0];
+            var tempPhone = clientlist[i].getElementsByTagName("Phone")[0];
+            var tempWebsite = clientlist[i].getElementsByTagName("Website")[0];
+
             clients[i] = new Object();
+
+            if (tempEmail != null)
+            {
+                clients[i].email = tempEmail.childNodes[0].nodeValue;
+            }
+            else
+            {
+                clients[i].email = null;
+            }
+
+            if (tempPhone != null)
+            {
+                clients[i].phone = tempPhone.childNodes[0].nodeValue;
+            }
+            else
+            {
+                clients[i].phone = null;
+            }
+
+            if (tempWebsite != null)
+            {
+                clients[i].website = tempWebsite.childNodes[0].nodeValue;
+            }
+            else
+            {
+                clients[i].website = null;
+            }
 
             clients[i].id = clientlist[i].getElementsByTagName("ID")[0].childNodes[0].nodeValue;
             clients[i].name = clientlist[i].getElementsByTagName("Name")[0].childNodes[0].nodeValue;
 
-            $("#clientList").append("<option>" + clients[i].name + "</option>");
-            //var temp = clientlist[i].getElementsByTagName("Email")[0].childNodes[0].nodeValue;
-
+            $("#clientList").append("<option value='" + i + "'>" + clients[i].name + "</option>");
         }
         makeJobList("clientList", "Clients");
     }
@@ -271,7 +365,7 @@
             jobs[i].id = joblist[i].getElementsByTagName("ID")[0].childNodes[0].nodeValue;
             jobs[i].name = joblist[i].getElementsByTagName("Name")[0].childNodes[0].nodeValue;
 
-            $("#jobList").append("<option>" + jobs[i].id + "-" + jobs[i].name + "</option>");
+            $("#jobList").append("<option value='" + i + "'>" + jobs[i].id + "-" + jobs[i].name + "</option>");
 
         }
 

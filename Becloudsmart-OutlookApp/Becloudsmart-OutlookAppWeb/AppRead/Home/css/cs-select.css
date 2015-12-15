@@ -36,7 +36,7 @@ div.cs-select:focus {
 
 /* Placeholder and selected option */
 .cs-select > span {
-	padding-right: 3em;
+	/*padding-right: 3em;*/
 }
 
 .cs-select > span::after,
@@ -84,7 +84,11 @@ div.cs-active {
 
 .cs-select ul {
 	list-style: none;
-	margin: 0;
+	margin: 0em;
+    background-color: #fff;
+    overflow-x: hidden;
+    overflow-y: auto;
+    max-height: 120px;
 	padding: 0;
 	width: 100%;
 }

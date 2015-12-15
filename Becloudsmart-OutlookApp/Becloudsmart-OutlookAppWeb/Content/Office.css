@@ -67,9 +67,10 @@ a {
     text-decoration: none;
 }
 
-    a:focus, a:hover, a:active {
-        text-decoration: underline;
-    }
+a:focus, a:hover, a:active 
+{
+  
+}
 
 ul {
     margin-left: 1.4em;

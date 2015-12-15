@@ -13,20 +13,16 @@
 .clearfix:before, .clearfix:after { content: ''; display: table; }
 .clearfix:after { clear: both; }
 */
-body {
-	/*background: #8dc63f;*/
-    /*3498db*/
+body 
+{
 	font-weight: 400;
-	/*font-size: 0.9em;*/
-	/*padding: 5px 5px;*/
     position: page;
-	/*border-right: 10px solid #fff;*/
-	/*border-left: 50px solid #22C1E1;*/
 	font-family: 'Raleway', Arial, sans-serif;
 }
 
 body::before,
-body::after {
+body::after 
+{
 	content: '';
 	position: inherit;
 	left: 0;
@@ -37,20 +33,10 @@ body::after {
 	z-index: 1001;
 }
 
-body::after {
+body::after 
+{
 	top: auto;
 	bottom: 0;
-}
-
-a {
-	color: #1e6fa4;
-	text-decoration: none;
-	outline: none;
-}
-
-a:hover, a:focus {
-	color: #125480;
-	outline: none;
 }
 
 /* Demo themes */
@@ -119,7 +105,7 @@ label.select-label {
 	line-height: 1.3;
 }*/
 
-/* To Navigation Style */
+/* To Navigation Style 
 .codrops-top {
 	width: 100%;
 	text-transform: uppercase;
@@ -164,7 +150,7 @@ label.select-label {
 	content: "\e004";
 }
 
-/* Demo Buttons Style */
+/* Demo Buttons Style 
 .codrops-demos {
 	padding-top: 1em;
 	font-size: 0.9em;
@@ -185,7 +171,7 @@ label.select-label {
 	color: inherit;
 }
 
-/* Related demos */
+/* Related demos 
 .related {
 	padding-top: 20em;
 }
@@ -245,4 +231,4 @@ label.select-label {
 		display: none;
 	}
 
-}
+}*/

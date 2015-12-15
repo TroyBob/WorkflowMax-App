@@ -80,6 +80,19 @@
                     Clients:
                     <select id="clientList" class="cs-select cs-skin-slide"></select>
                 </label>
+                <div class="info">
+                    <h2>Client Information</h2> <br />
+                    <div>
+                        <span>Hello</span>
+
+                    </div>
+                    <div>
+                        <span>Test</span>
+                        
+                    </div>
+
+
+                </div>
             </div>
             <div class="tickbox" id="tickboxData" hidden="hidden">
                 <label>
@@ -87,6 +100,19 @@
                     <select id="jobList" class="cs-select cs-skin-slide"></select>
                 </label>
 
+                <div class="info">
+                    <h2>Job Information</h2> <br />
+                    <div class="info-block">
+                        <span>Hello</span>
+
+                    </div>
+                    <div class="info-block">
+                        <span>Test</span>
+
+                    </div>
+
+
+                </div>
             </div>
             <div id="settingsData" class="settings" hidden="hidden">
                 <form>
@@ -96,21 +122,50 @@
                     </label> <br /> <br />
                     <label>
                         Account Key:
-                        <input id="" type="password" />
+                        <input id="accountkey" type="password" />
                     </label>
                     <input id="keySubmitButton" type="button" value="Submit" />
                 </form>
             </div>
             <div id="faqData" class="faq" hidden="hidden">
-                <span><h3><u>FAQ</u></h3></span>
+                <span><b><u>FAQ</u></b></span> <br />
+                <div class="container">
+                    <div class="accordion">
+                        <dl>
+                            <dt>
+                                <a href="#accordion1" aria-expanded="false" aria-controls="accordion1" class="accordion-title accordionTitle js-accordionTrigger">First Question?</a>
+                            </dt>
+                            <dd class="accordion-content accordionItem is-collapsed" id="accordion1" aria-hidden="true">
+                                <p> First Answer</p>  
+                            </dd>
+                            <dt>
+                                <a href="#accordion2" aria-expanded="false" aria-controls="accordion2" class="accordion-title accordionTitle js-accordionTrigger">
+                                    Second Question
+                                </a>
+                            </dt>
+                            <dd class="accordion-content accordionItem is-collapsed" id="accordion2" aria-hidden="true">
+                                <p>Second Answer </p>
+                            </dd>
+                            <dt>
+                                <a href="#accordion3" aria-expanded="false" aria-controls="accordion3" class="accordion-title accordionTitle js-accordionTrigger">
+                                    Third Question
+                                </a>
+                            </dt>
+                            <dd class="accordion-content accordionItem is-collapsed" id="accordion3" aria-hidden="true">
+                                <p>Third Answer </p>
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
             </div>
             <div id="supportData" class="support" hidden="hidden">
-                <label>
-                    Email support:
-                </label>
-                <textarea id="support" rows="4" cols="50"></textarea>
-                <br />
-                <input id="emailSubmitButton" type="button" value="Submit" />
+                <form action="mailto:troy@becloudsmart.com" method="post" enctype="multipart/form-data" name="EmailTestForm">
+                    Your Comment: <br />
+                    <textarea name="VisitorComent" rows="4" cols="20"></textarea>
+                    <br /><br />
+                    <input type="submit" value="Email this form" />
+
+                </form>
             </div>
         </div>
     </div>
