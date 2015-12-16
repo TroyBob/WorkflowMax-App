@@ -195,8 +195,6 @@
         }
     }
 
-
-
     function displayHomeData()
     {
         $("#numClients").text(clients.length);
@@ -370,6 +368,12 @@
         }
 
         makeJobList("jobList", "Jobs");
+    }
+
+    function fillTaskList()
+    {
+
+
     }
 
     // Uploads the attachment of the email if there is one.
