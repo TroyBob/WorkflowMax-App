@@ -84,18 +84,15 @@
     function displayClientInfo(e)
     {
         var id = $(this).attr('data-value');
-
-        app.showNotification(clients[id].email);
-       
-
     }
 
     function displayJobInfo(e)
     {
         var id = $(this).attr('data-value');
 
-        
+        cJobID = jobs[id].id;
 
+        fillTaskList();
     }
 
     function switchAccordion(e)
@@ -298,12 +295,12 @@
 
         var clientlist = clientXML.getElementsByTagName("Client");
 
-        var temp = clientlist[2].getElementsByTagName("Email")[0];
+        /*var temp = clientlist[2].getElementsByTagName("Email")[0];
 
         if (temp == null)
         {
             app.showNotification("Test!");
-        }
+        }*/
 
         for (var i = 0; i < clientlist.length; i++)
         {
@@ -324,7 +321,7 @@
 
             if (tempPhone != null)
             {
-                clients[i].phone = tempPhone.childNodes[0].nodeValue;
+                //clients[i].phone = tempPhone.childNodes[0].nodeValue;
             }
             else
             {
@@ -333,7 +330,7 @@
 
             if (tempWebsite != null)
             {
-                clients[i].website = tempWebsite.childNodes[0].nodeValue;
+                //clients[i].website = tempWebsite.childNodes[0].nodeValue;
             }
             else
             {
@@ -373,7 +370,28 @@
     function fillTaskList()
     {
 
+        $("#taskDiv").empty();
+        $("#taskDiv").append('<label> Tasks: <select id="taskList" class="cs-select cs-skin-slide"></select> </label>'
+                               + '<span class="icons">Hello</span>');
+        
+        var apicall = "https://api.workflowmax.com/job.api/get/" + cJobID + "?apiKey=" + apiKey + "&accountKey=" + accountKey;
+        app.showNotification("test");
 
+        var jobdetails = getXML(apicall);
+
+        var numTasks = jobdetails.getElementsByTagName("Task");
+
+        for (var i = 0; i < numTasks.length; i++)
+        {
+            var tempTaskID = numTasks[i].getElementsByTagName("ID")[0].childNodes[0].nodeValue;
+            var tempTaskName = numTasks[i].getElementsByTagName("Name")[0].childNodes[0].nodeValue;
+
+            $('#taskList').append('<option value="' + tempTaskID + '">' + tempTaskName + '</option>'); // Append the current job's list of tasks.
+        }
+
+        makeTaskList("taskList", "Tasks");
+
+        $("#taskDiv").show();
     }
 
     // Uploads the attachment of the email if there is one.

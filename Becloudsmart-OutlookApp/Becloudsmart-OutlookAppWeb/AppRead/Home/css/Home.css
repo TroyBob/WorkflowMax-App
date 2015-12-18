@@ -164,6 +164,26 @@ div.icons:hover
     left: 12px
 }
 
+.task
+{
+    position: absolute;
+    margin-top: 5%;
+
+}
+
+.buttons
+{
+    font-family: SPO365Icons;
+    font-size: 1.1em;
+
+}
+
+.buttons:hover
+{
+    cursor: pointer;
+    opacity: 0.7;
+}
+
 .info
 {
     display: block;
