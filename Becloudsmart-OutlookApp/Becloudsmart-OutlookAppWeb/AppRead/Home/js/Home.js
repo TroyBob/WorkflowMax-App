@@ -10,8 +10,10 @@
     var expanded = false;
     var selectedIcon = "home"; //ID of the selected icon.
 
+    var time = 5;
+
     var apiKey = "14C10292983D48CE86E1AA1FE0F8DDFE";    // API key for calls to WorkflowMax API.
-    var accountKey = "8A39F28D022B4366975D6FCDB180C839"; // Account key for calls to WorkflowMax API.
+    var accountKey = "E12EDE7344444BA797F1E6E19BDEF8E4"; // Account key for calls to WorkflowMax API.
 
     var clients;
     var jobs;
@@ -35,6 +37,45 @@
             $(".icons").on('click', function ()
             {
                 iconSelect($(this));
+            });
+
+            $("body").on("click", ".buttons", function ()
+            {
+                switch(this.id)
+                {
+                    case 'timer':
+                        setTime($(this));
+                        break;
+                    case 'note':
+                        uploadNote();
+                        break;
+                    case 'attachment':
+                        uploadAttachment();
+                        break;
+                    case 'tick':
+                        uploadTimesheet();
+                        break;
+                    default:
+                        break;
+                }
+            });
+
+            $("#taskDiv").on("click", "#plus", function ()
+            {
+                if (time < 30)
+                {
+                    time += 5;
+                } 
+                $("#time").text(time);
+            });
+
+            $("#taskDiv").on("click", "#minus", function ()
+            {
+                if (time > 5)
+                {
+                    time -= 5;
+                }
+                $("#time").text(time);
             });
 
             $("#keySubmitButton").on('click', updateKeys);
@@ -80,6 +121,39 @@
        
         displayHomeData();
     }
+
+    // Creates the timing box with + and - symbols.
+    function setTime(but)
+    {
+        var plus = document.createElement("span");
+        var minus = document.createElement("span");
+        var t = document.createElement("span");
+        var tick = document.createElement("span");
+        
+        tick.className = "buttons";
+        plus.className = "time";
+        minus.className = "time";
+        plus.id = "plus";
+        t.id = "time";
+        minus.id = "minus";
+        tick.id = "tick";
+        tick.innerHTML = "&#57409;"
+        t.textContent = time;
+        plus.textContent = " + ";
+        minus.textContent = " - ";
+
+        but.after(tick);
+        but.after(plus);
+        but.after(t);
+        but.after(minus);
+
+
+
+       
+        
+    }
+
+
 
     function displayClientInfo(e)
     {
@@ -268,12 +342,35 @@
 
     function addText()
     {
-        $("#home span").append(" Home");
-        $("#client span").append(" Clients");
-        $("#tickbox span").append(" Tasks");
-        $("#settings span").append(" Settings");
-        $("#faq span").append(" FAQ");
-        $("#support span").append(" Support");
+        var home = document.createElement("span");
+        var client = document.createElement("span");
+        var tickbox = document.createElement("span");
+        var settings = document.createElement("span");
+        var faq = document.createElement("span");
+        var support = document.createElement("span");
+
+        home.className = "expandedIcons"
+        client.className = "expandedIcons"
+        tickbox.className = "expandedIcons"
+        settings.className = "expandedIcons"
+        faq.className = "expandedIcons"
+        support.className = "expandedIcons"
+
+        home.innerHTML = "Home";
+        client.innerHTML = "Client";
+        tickbox.innerHTML = "Tasks";
+        settings.innerHTML = "Settings";
+        faq.innerHTML = "FAQ";
+        support.innerHTML = "Support";
+
+
+        $("#home span").after(home);
+        //$("#home span").append(" Home");
+        $("#client span").after(client);
+        $("#tickbox span").after(tickbox);
+        $("#settings span").after(settings);
+        $("#faq span").after(faq);
+        $("#support span").after(support);
     }
 
     // Function to get the sender email.
@@ -312,7 +409,7 @@
 
             if (tempEmail != null)
             {
-                clients[i].email = tempEmail.childNodes[0].nodeValue;
+                //clients[i].email = tempEmail.childNodes[0].nodeValue;
             }
             else
             {
@@ -332,7 +429,7 @@
             {
                 //clients[i].website = tempWebsite.childNodes[0].nodeValue;
             }
-            else
+            
             {
                 clients[i].website = null;
             }
@@ -372,10 +469,9 @@
 
         $("#taskDiv").empty();
         $("#taskDiv").append('<label> Tasks: <select id="taskList" class="cs-select cs-skin-slide"></select> </label>'
-                               + '<span class="icons">Hello</span>');
+                               + '<span class="buttons" id="timer">&#57605;</span>');
         
         var apicall = "https://api.workflowmax.com/job.api/get/" + cJobID + "?apiKey=" + apiKey + "&accountKey=" + accountKey;
-        app.showNotification("test");
 
         var jobdetails = getXML(apicall);
 
@@ -463,7 +559,7 @@
         {      
             var apicall = "https://api.workflowmax.com/time.api/add?apiKey=" + apiKey + "&accountKey=" + accountKey;
             //app.showNotification("test1");
-            var tsxml = "<Timesheet><Job>" + cJobID + "</Job><Task>" + cTaskID + "</Task><Staff>" + staffID + "</Staff><Date>" + getDate() + "</Date><Minutes>" + $('#time :selected').text() + "</Minutes><Note>" + $('#timesheetNote').val() + "</Note></Timesheet>";
+            var tsxml = "<Timesheet><Job>" + cJobID + "</Job><Task>" + cTaskID + "</Task><Staff>" + staffID + "</Staff><Date>" + getDate() + "</Date><Minutes>" + time + "</Minutes><Note>Email Processing</Note></Timesheet>";
             
             var xhr = new XMLHttpRequest();
 
@@ -475,7 +571,7 @@
             if(xhr.status == 200)
             {
                 // Successful status.
-                app.showNotification($('#time :selected').text() + " minutes added to " + cTaskName);
+                app.showNotification(time + " minutes added to " + cTaskName);
             }
             else if(xhr.status == 500)
             {

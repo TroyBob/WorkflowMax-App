@@ -52,12 +52,22 @@ div.icons
     height: 6%;
     padding: 9px;
     text-align: center;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-bottom-color: #535456;
 }
 
 .icons.selected
 {
     background: #fff;
     color: #595A5C;
+}
+
+.expandedIcons
+{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding-left: 7px;
+
 }
 
 div.icons:hover
@@ -174,7 +184,7 @@ div.icons:hover
 .buttons
 {
     font-family: SPO365Icons;
-    font-size: 1.1em;
+    font-size: 1.2em;
 
 }
 
@@ -194,6 +204,17 @@ div.icons:hover
     padding-bottom: 5px;
     height: 200px;
     width: 25%;
+}
+
+.time
+{
+    font-size: 1.25em;
+}
+
+.time:hover
+{
+    cursor: pointer;
+    opacity: 0.8;
 }
 
 .info-block

@@ -41,6 +41,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <UseVSHostingProcess>false</UseVSHostingProcess>
+    <DocumentationFile>
+    </DocumentationFile>
+    <RegisterForComInterop>false</RegisterForComInterop>
   </PropertyGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -49,6 +52,7 @@
     </None>
     <Content Include="Becloudsmart-OutlookAppManifest\Becloudsmart-OutlookApp.xml">
       <OpcRelationship>manifest-oemanifest</OpcRelationship>
+      <SubType>Designer</SubType>
     </Content>
   </ItemGroup>
   <ItemGroup>

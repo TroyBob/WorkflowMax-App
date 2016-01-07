@@ -9,20 +9,38 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Becloudsmart-OutlookAppWeb"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		CD_ROM|Any CPU = CD_ROM|Any CPU
 		Debug|Any CPU = Debug|Any CPU
+		DVD-5|Any CPU = DVD-5|Any CPU
 		Release|Any CPU = Release|Any CPU
+		SingleImage|Any CPU = SingleImage|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3FEE730F-8574-4401-8BAC-7E873C1A4E57}.CD_ROM|Any CPU.ActiveCfg = Release|Any CPU
+		{3FEE730F-8574-4401-8BAC-7E873C1A4E57}.CD_ROM|Any CPU.Build.0 = Release|Any CPU
+		{3FEE730F-8574-4401-8BAC-7E873C1A4E57}.CD_ROM|Any CPU.Deploy.0 = Release|Any CPU
 		{3FEE730F-8574-4401-8BAC-7E873C1A4E57}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3FEE730F-8574-4401-8BAC-7E873C1A4E57}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3FEE730F-8574-4401-8BAC-7E873C1A4E57}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{3FEE730F-8574-4401-8BAC-7E873C1A4E57}.DVD-5|Any CPU.ActiveCfg = Debug|Any CPU
+		{3FEE730F-8574-4401-8BAC-7E873C1A4E57}.DVD-5|Any CPU.Build.0 = Debug|Any CPU
+		{3FEE730F-8574-4401-8BAC-7E873C1A4E57}.DVD-5|Any CPU.Deploy.0 = Debug|Any CPU
 		{3FEE730F-8574-4401-8BAC-7E873C1A4E57}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3FEE730F-8574-4401-8BAC-7E873C1A4E57}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3FEE730F-8574-4401-8BAC-7E873C1A4E57}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{3FEE730F-8574-4401-8BAC-7E873C1A4E57}.SingleImage|Any CPU.ActiveCfg = Release|Any CPU
+		{3FEE730F-8574-4401-8BAC-7E873C1A4E57}.SingleImage|Any CPU.Build.0 = Release|Any CPU
+		{3FEE730F-8574-4401-8BAC-7E873C1A4E57}.SingleImage|Any CPU.Deploy.0 = Release|Any CPU
+		{B2D8D079-ED50-4551-8D5E-688D96B2460A}.CD_ROM|Any CPU.ActiveCfg = Release|Any CPU
+		{B2D8D079-ED50-4551-8D5E-688D96B2460A}.CD_ROM|Any CPU.Build.0 = Release|Any CPU
 		{B2D8D079-ED50-4551-8D5E-688D96B2460A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B2D8D079-ED50-4551-8D5E-688D96B2460A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2D8D079-ED50-4551-8D5E-688D96B2460A}.DVD-5|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2D8D079-ED50-4551-8D5E-688D96B2460A}.DVD-5|Any CPU.Build.0 = Debug|Any CPU
 		{B2D8D079-ED50-4551-8D5E-688D96B2460A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B2D8D079-ED50-4551-8D5E-688D96B2460A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B2D8D079-ED50-4551-8D5E-688D96B2460A}.SingleImage|Any CPU.ActiveCfg = Release|Any CPU
+		{B2D8D079-ED50-4551-8D5E-688D96B2460A}.SingleImage|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
