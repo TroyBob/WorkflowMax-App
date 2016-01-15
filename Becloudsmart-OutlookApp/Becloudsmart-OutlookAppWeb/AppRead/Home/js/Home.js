@@ -332,45 +332,35 @@
 
     function removeText()
     {
-        $("#home span").html("&#57377;");   
+        $("#home_expand").hide();
+        $("#client_expand").hide();
+        $("#tickbox_expand").hide();
+        $("#settings_expand").hide();
+        $("#faq_expand").hide();
+        $("#support_expand").hide();
+        /*$("#home span").html("&#57377;");   
         $("#client span").html("&#57358;");
         $("#tickbox span").html("&#57408;");
         $("#settings span").html("&#57397;");
         $("#faq span").html("&#57350;");
-        $("#support span").html("&#57398;");
+        $("#support span").html("&#57398;");*/
     }
 
     function addText()
     {
-        var home = document.createElement("span");
-        var client = document.createElement("span");
-        var tickbox = document.createElement("span");
-        var settings = document.createElement("span");
-        var faq = document.createElement("span");
-        var support = document.createElement("span");
-
-        home.className = "expandedIcons"
-        client.className = "expandedIcons"
-        tickbox.className = "expandedIcons"
-        settings.className = "expandedIcons"
-        faq.className = "expandedIcons"
-        support.className = "expandedIcons"
-
-        home.innerHTML = "Home";
-        client.innerHTML = "Client";
-        tickbox.innerHTML = "Tasks";
-        settings.innerHTML = "Settings";
-        faq.innerHTML = "FAQ";
-        support.innerHTML = "Support";
-
-
-        $("#home span").after(home);
+        $("#home_expand").show();
+        $("#client_expand").show();
+        $("#tickbox_expand").show();
+        $("#settings_expand").show();
+        $("#faq_expand").show();
+        $("#support_expand").show();
+        /*$("#home span").after(home);
         //$("#home span").append(" Home");
         $("#client span").after(client);
         $("#tickbox span").after(tickbox);
         $("#settings span").after(settings);
         $("#faq span").after(faq);
-        $("#support span").after(support);
+        $("#support span").after(support);*/
     }
 
     // Function to get the sender email.
@@ -556,10 +546,11 @@
     function uploadTimesheet()
     {
         if (cTaskName != "Task")
-        {      
+        {
+            var currentDate = new Date();
             var apicall = "https://api.workflowmax.com/time.api/add?apiKey=" + apiKey + "&accountKey=" + accountKey;
             //app.showNotification("test1");
-            var tsxml = "<Timesheet><Job>" + cJobID + "</Job><Task>" + cTaskID + "</Task><Staff>" + staffID + "</Staff><Date>" + getDate() + "</Date><Minutes>" + time + "</Minutes><Note>Email Processing</Note></Timesheet>";
+            var tsxml = "<Timesheet><Job>" + cJobID + "</Job><Task>" + cTaskID + "</Task><Staff>" + staffID + "</Staff><Date>" + getDate() + "</Date><Minutes>" + time + "</Minutes><Note>Email replied to " + Office.context.mailbox.item.sender.emailAddress + " on " + currentDate.toString() +  "</Note></Timesheet>";
             
             var xhr = new XMLHttpRequest();
 

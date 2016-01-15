@@ -57,6 +57,18 @@ div.icons
     border-bottom-color: #535456;
 }
 
+.sidebar
+{
+    position:absolute;
+}
+
+.expand
+{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    position:absolute;
+    left: 35px;
+}
+
 .icons.selected
 {
     background: #fff;

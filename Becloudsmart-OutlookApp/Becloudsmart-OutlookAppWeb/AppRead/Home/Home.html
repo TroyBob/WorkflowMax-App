@@ -31,13 +31,13 @@
 <body>
     <div class="main">
         <div class="left">
-            <div class="icons arrow" id="arrow"><span>&#57482;</span></div>   <!-- Right arrow icon -->
-            <div class="icons selected" id="home"><span>&#57377;</span></div>
-            <div class="icons" id="client"><span>&#57358;</span></div>  <!-- Person icon -->
-            <div class="icons" id="tickbox"><span>&#57408;</span></div>
-            <div class="icons" id="settings"><span>&#57397;</span></div>
-            <div class="icons" id="faq"><span>&#57350;</span></div>
-            <div class="icons" id="support"><span>&#57398;</span></div>
+            <div class="icons arrow" id="arrow"><div class="sidebar"><span>&#57482;</span></div></div>   <!-- Right arrow icon -->
+            <div class="icons selected" id="home"><div class="sidebar"><span>&#57377;</span></div><div id="home_expand" class="expand" hidden="hidden"><span>Home</span></div></div>
+            <div class="icons" id="client"><div class="sidebar"><span>&#57358;</span></div><div id="client_expand" class="expand" hidden="hidden"><span>Clients</span></div></div>  <!-- Person icon -->
+            <div class="icons" id="tickbox"><div class="sidebar"><span>&#57408;</span></div><div id="tickbox_expand" class="expand" hidden="hidden"><span>Tasks</span></div></div>
+            <div class="icons" id="settings"><div class="sidebar"><span>&#57397;</span></div><div id="settings_expand" class="expand" hidden="hidden"><span>Settings</span></div></div>
+            <div class="icons" id="faq"><div class="sidebar"><span>&#57350;</span></div><div id="faq_expand" class="expand" hidden="hidden"><span>FAQ</span></div></div>
+            <div class="icons" id="support"><div class="sidebar"><span>&#57398;</span></div><div id="support_expand" class="expand" hidden="hidden"><span>Support</span></div></div>
         </div>
 
 
@@ -53,6 +53,7 @@
                     <span style="font-size: 2em" id="numJobs">  </span><br />
                     <span style="font-size: 1em" id="totalJobs">  </span>
                 </div>
+                <!--
                 <div class="bigbox">
                     <span style="font-size: 2em" id="">More Info  </span><br />
                     <span style="font-size: 1em" id="">  </span>
@@ -60,7 +61,7 @@
                 <div class="bigbox">
                     <span style="font-size: 2em" id="">More Info  </span><br />
                     <span style="font-size: 1em" id="">  </span>
-                </div>
+                </div>-->
             </div>
             <!--<select id="selectJobs" name="selectJob" class="cs-select cs-skin-slide" hidden="hidden" disabled="disabled">
                 <option selected>Jobs</option>
